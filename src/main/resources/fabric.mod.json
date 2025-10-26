@@ -1,0 +1,20 @@
+{
+  "schemaVersion": 1,
+  "id": "corruptionmod",
+  "version": "1.0.0",
+  "name": "Corruption Mod",
+  "description": "Le Néant s'éveille... Un mod cosmique et inquiétant.",
+  "authors": ["Mada"],
+  "contact": {},
+  "license": "MIT",
+  "environment": "*",
+  "entrypoints": {
+    "main": ["com.corruptionmod.CorruptionMod"]
+  },
+  "mixins": [],
+  "depends": {
+    "fabricloader": ">=0.14.0",
+    "fabric": "*",
+    "minecraft": "1.21.1"
+  }
+}

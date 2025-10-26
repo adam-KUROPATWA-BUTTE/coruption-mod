@@ -1,0 +1,11 @@
+{
+  "type": "minecraft:entity",
+  "pools": [
+    {
+      "rolls": 1,
+      "entries": [
+        { "type": "minecraft:item", "name": "corruptionmod:heart_of_void", "weight": 1 }
+      ]
+    }
+  ]
+}

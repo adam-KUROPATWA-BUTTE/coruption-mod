@@ -1,0 +1,10 @@
+{
+  "type": "minecraft:dimension_type",
+  "name": "corruptionmod:le_neant",
+  "ultrawarm": false,
+  "natural": false,
+  "has_skylight": false,
+  "ambient_light": 0.1,
+  "fixed_time": 18000,
+  "effects": "minecraft:the_end"
+}

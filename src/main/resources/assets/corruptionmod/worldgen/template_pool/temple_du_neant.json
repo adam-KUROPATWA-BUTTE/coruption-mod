@@ -1,0 +1,7 @@
+{
+  "name": "corruptionmod:temple_du_neant",
+  "fallback": "minecraft:empty",
+  "elements": [
+    { "element": { "location": "corruptionmod:temple_du_neant", "processors": "minecraft:empty", "projection": "rigid" }, "weight": 1 }
+  ]
+}

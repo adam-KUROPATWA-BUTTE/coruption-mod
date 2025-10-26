@@ -1,0 +1,8 @@
+{
+  "block.corruptionmod.corruption_block": "Corruption Block",
+  "block.corruptionmod.corruption_altar": "Corruption Altar",
+  "block.corruptionmod.void_portal_frame": "Void Portal Frame",
+  "item.corruptionmod.heart_of_void": "Heart of Void",
+  "entity.corruptionmod.stranger": "The Stranger",
+  "entity.corruptionmod.xynor": "Xynor, Shadow Weaver"
+}

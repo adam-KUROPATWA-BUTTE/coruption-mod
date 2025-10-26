@@ -1,0 +1,5 @@
+{
+  "variants": {
+    "": { "model": "corruptionmod:block/corruption_block" }
+  }
+}

@@ -1,0 +1,52 @@
+package com.corruptionmod;
+
+import com.corruptionmod.block.CorruptionAltarBlock;
+import com.corruptionmod.block.CorruptionBlock;
+import com.corruptionmod.block.CorruptedGrassBlock;
+import com.corruptionmod.block.CorruptedSandBlock;
+import com.corruptionmod.block.CorruptedStoneBlock;
+import com.corruptionmod.block.RottedWoodBlock;
+import com.corruptionmod.block.TaintedWaterBlock;
+import com.corruptionmod.block.VoidPortalBlock;
+import net.minecraft.block.Block;
+import net.minecraft.block.Material;
+import net.minecraft.util.Identifier;
+import net.minecraft.util.registry.Registry;
+
+/**
+ * Enregistre les blocs spéciaux du mod.
+ */
+public class ModBlocks {
+    public static Block CORRUPTION_BLOCK;
+    public static Block CORRUPTION_ALTAR;
+    public static Block VOID_PORTAL_FRAME;
+
+    // Converted variants
+    public static Block CORRUPTED_GRASS;
+    public static Block CORRUPTED_DIRT;
+    public static Block CORRUPTED_STONE;
+    public static Block ROTTED_WOOD;
+    public static Block CORRUPTED_SAND;
+    public static Block TAINTED_WATER;
+    public static Block PURIFICATION_CRYSTAL;
+
+    // Méthode appelée par la classe principale. Nom aligné sur CorruptionMod.java
+    public static void register() {
+        // Source / core corruption block
+    CORRUPTION_BLOCK = Registry.register(Registry.BLOCK, new Identifier(CorruptionMod.MOD_ID, "corruption_block"), new CorruptionBlock(Block.Settings.of(Material.STONE).strength(3.0f, 6.0f)));
+
+        // Converted block variants
+    CORRUPTED_GRASS = Registry.register(Registry.BLOCK, new Identifier(CorruptionMod.MOD_ID, "corrupted_grass"), new CorruptedGrassBlock());
+    // Corrupted dirt variant used by CorruptionBlock
+    CORRUPTED_DIRT = Registry.register(Registry.BLOCK, new Identifier(CorruptionMod.MOD_ID, "corrupted_dirt"), new com.corruptionmod.block.CorruptedDirtBlock());
+        CORRUPTED_STONE = Registry.register(Registry.BLOCK, new Identifier(CorruptionMod.MOD_ID, "corrupted_stone"), new CorruptedStoneBlock());
+        ROTTED_WOOD = Registry.register(Registry.BLOCK, new Identifier(CorruptionMod.MOD_ID, "rotted_wood"), new RottedWoodBlock());
+        CORRUPTED_SAND = Registry.register(Registry.BLOCK, new Identifier(CorruptionMod.MOD_ID, "corrupted_sand"), new CorruptedSandBlock());
+        TAINTED_WATER = Registry.register(Registry.BLOCK, new Identifier(CorruptionMod.MOD_ID, "tainted_water"), new TaintedWaterBlock());
+
+        // Utility blocks
+        CORRUPTION_ALTAR = Registry.register(Registry.BLOCK, new Identifier(CorruptionMod.MOD_ID, "corruption_altar"), new CorruptionAltarBlock());
+        VOID_PORTAL_FRAME = Registry.register(Registry.BLOCK, new Identifier(CorruptionMod.MOD_ID, "void_portal_frame"), new VoidPortalBlock());
+        PURIFICATION_CRYSTAL = Registry.register(Registry.BLOCK, new Identifier(CorruptionMod.MOD_ID, "purification_crystal"), new com.corruptionmod.block.PurificationCrystalBlock());
+    }
+}

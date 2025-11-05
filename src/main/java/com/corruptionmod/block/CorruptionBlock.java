@@ -88,6 +88,17 @@ public class CorruptionBlock extends Block {
         // Fallback
         return ModBlocks.CORRUPTION_BLOCK.getDefaultState();
     }
+    
+    private float corruptionChanceFor(BlockState state) {
+        String key = state.getBlock().getTranslationKey().toLowerCase();
+        if (key.contains("grass") || key.contains("dirt")) return 0.6f;
+        if (key.contains("stone")) return 0.35f;
+        if (key.contains("log") || key.contains("wood")) return 0.25f;
+        if (key.contains("sand")) return 0.2f;
+        if (key.contains("leaves")) return 0.3f;
+        // Other blocks
+        return 0.05f;
+    }
 
     private void spawnCorruptionParticles(World world, BlockPos pos) {
         Random random = world.getRandom();

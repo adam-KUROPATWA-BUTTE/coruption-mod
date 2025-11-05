@@ -84,6 +84,7 @@ public class CorruptionBlock extends Block {
         if (key.contains("log") || key.contains("wood")) return ModBlocks.ROTTED_WOOD.getDefaultState();
         if (key.contains("sand")) return ModBlocks.CORRUPTED_SAND.getDefaultState();
         if (key.contains("water")) return ModBlocks.TAINTED_WATER.getDefaultState();
+        if (key.contains("leaves")) return ModBlocks.WITHERED_LEAVES.getDefaultState();
         // Fallback
         return ModBlocks.CORRUPTION_BLOCK.getDefaultState();
     }

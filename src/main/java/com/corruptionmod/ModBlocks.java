@@ -28,6 +28,7 @@ public class ModBlocks {
     public static Block ROTTED_WOOD;
     public static Block CORRUPTED_SAND;
     public static Block TAINTED_WATER;
+    public static Block WITHERED_LEAVES;
     public static Block PURIFICATION_CRYSTAL;
 
     // Méthode appelée par la classe principale. Nom aligné sur CorruptionMod.java
@@ -43,6 +44,7 @@ public class ModBlocks {
         ROTTED_WOOD = Registry.register(Registry.BLOCK, new Identifier(CorruptionMod.MOD_ID, "rotted_wood"), new RottedWoodBlock());
         CORRUPTED_SAND = Registry.register(Registry.BLOCK, new Identifier(CorruptionMod.MOD_ID, "corrupted_sand"), new CorruptedSandBlock());
         TAINTED_WATER = Registry.register(Registry.BLOCK, new Identifier(CorruptionMod.MOD_ID, "tainted_water"), new TaintedWaterBlock());
+        WITHERED_LEAVES = Registry.register(Registry.BLOCK, new Identifier(CorruptionMod.MOD_ID, "withered_leaves"), new com.corruptionmod.block.WitheredLeavesBlock());
 
         // Utility blocks
         CORRUPTION_ALTAR = Registry.register(Registry.BLOCK, new Identifier(CorruptionMod.MOD_ID, "corruption_altar"), new CorruptionAltarBlock());

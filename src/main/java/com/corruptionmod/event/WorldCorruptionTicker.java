@@ -12,20 +12,28 @@ import java.util.Map;
 import java.util.Random;
 
 /**
- * Gère la propagation de la corruption.
- * Version prototype : effectue une propagation par monde à intervalles aléatoires (20-40s)
- * et échantillonne des positions dans les chunks chargés pour étendre la corruption.
+ * Manages corruption spreading mechanics.
+ * Uses chunk-based tracking with HashMap to efficiently track corruption progress
+ * across loaded chunks. Spreads corruption at random intervals (20-40s) by sampling
+ * positions in loaded chunks.
  */
 public class WorldCorruptionTicker {
     private static final long MIN_TICKS = 20L * 20L; // 20s
     private static final long MAX_TICKS = 20L * 40L; // 40s
     private static final Random RANDOM = new Random();
 
-    // Prochaine tick de propagation par dimension
+    // Next spread tick per dimension (world-level tracking)
     private static final Map<World, Long> nextSpreadTick = new HashMap<>();
+    
+    // Chunk-based corruption intensity tracking
+    // Maps chunk position to corruption level (0.0 to 1.0)
+    private static final Map<ChunkPos, Float> chunkCorruptionLevel = new HashMap<>();
+    
+    // Last processed time per chunk to avoid over-processing
+    private static final Map<ChunkPos, Long> chunkLastProcessed = new HashMap<>();
 
     /**
-     * Méthode appelée depuis CorruptionMod (ServerTickEvents.END_WORLD_TICK)
+     * Called from CorruptionMod via ServerTickEvents.END_WORLD_TICK
      */
     public static void tick(ServerWorld world) {
         if (world == null || world.isClient) return;
@@ -35,11 +43,16 @@ public class WorldCorruptionTicker {
 
         if (time < next) return;
 
-        // Exécute une passe de propagation
+        // Execute corruption spread pass
         spreadCorruption(world);
 
-        // Planifie la prochaine propagation
+        // Schedule next spread
         nextSpreadTick.put(world, time + randomInterval());
+        
+        // Cleanup old chunk data periodically (every 5 minutes)
+        if (time % (20L * 60L * 5L) == 0) {
+            cleanupChunkData(world, time);
+        }
     }
 
     private static long randomInterval() {
@@ -47,18 +60,38 @@ public class WorldCorruptionTicker {
     }
 
     /**
-     * Logique prototype de propagation : pour chaque chunk chargé, on échantillonne
-     * quelques positions et si un bloc corrompu est trouvé, on tente de corrompre
-     * un voisin selon des priorités simples.
+     * Cleanup chunk tracking data for unloaded chunks
+     */
+    private static void cleanupChunkData(ServerWorld world, long currentTime) {
+        chunkCorruptionLevel.entrySet().removeIf(entry -> {
+            ChunkPos chunkPos = entry.getKey();
+            // Remove if chunk hasn't been processed in the last 10 minutes
+            Long lastProcessed = chunkLastProcessed.get(chunkPos);
+            return lastProcessed != null && (currentTime - lastProcessed) > (20L * 60L * 10L);
+        });
+        
+        chunkLastProcessed.entrySet().removeIf(entry -> {
+            Long lastProcessed = entry.getValue();
+            return (currentTime - lastProcessed) > (20L * 60L * 10L);
+        });
+    }
+
+    /**
+     * Spread corruption logic: samples positions in loaded chunks
+     * and attempts to spread corruption from source blocks.
      */
     private static void spreadCorruption(ServerWorld world) {
-        // Prototype : échantillonne autour des joueurs connectés (chunks chargés), réduit la portée CPU
+        // Sample around connected players (loaded chunks)
         final int SAMPLES_PER_PLAYER = 8;
         final int SAMPLE_RADIUS = 64;
 
         for (net.minecraft.entity.player.PlayerEntity player : world.getPlayers()) {
             int px = player.getBlockX();
             int pz = player.getBlockZ();
+            
+            // Track the chunk the player is in
+            ChunkPos playerChunk = new ChunkPos(px >> 4, pz >> 4);
+            chunkLastProcessed.put(playerChunk, world.getTime());
 
             for (int s = 0; s < SAMPLES_PER_PLAYER; s++) {
                 int x = px + RANDOM.nextInt(SAMPLE_RADIUS * 2 + 1) - SAMPLE_RADIUS;
@@ -66,14 +99,23 @@ public class WorldCorruptionTicker {
                 int y = world.getTopY() - 1;
 
                 BlockPos pos = new BlockPos(x, y, z);
-                // Descend jusqu'à trouver un bloc solide
+                ChunkPos chunkPos = new ChunkPos(x >> 4, z >> 4);
+                
+                // Update chunk tracking
+                chunkLastProcessed.put(chunkPos, world.getTime());
+                
+                // Find solid block
                 while (pos.getY() > world.getBottomY() && world.isAir(pos)) {
                     pos = pos.down();
                 }
 
                 BlockState state = world.getBlockState(pos);
-                // Si c'est un bloc de corruption source, tente d'étendre
+                // If corruption source found, attempt to spread
                 if (isCorruptionSource(state)) {
+                    // Increase chunk corruption level
+                    float currentLevel = chunkCorruptionLevel.getOrDefault(chunkPos, 0.0f);
+                    chunkCorruptionLevel.put(chunkPos, Math.min(1.0f, currentLevel + 0.01f));
+                    
                     attemptSpreadFrom(world, pos);
                 }
             }
@@ -81,41 +123,54 @@ public class WorldCorruptionTicker {
     }
 
     /**
-     * Force une passe de propagation immédiate dans ce monde (utilisé par la commande)
+     * Force an immediate corruption spread pass in this world (used by commands)
      */
     public static void forceSpread(ServerWorld world) {
         if (world == null || world.isClient) return;
         spreadCorruption(world);
-        // Réduire le délai avant la prochaine passe
+        // Reduce delay before next pass
         nextSpreadTick.put(world, world.getTime() + MIN_TICKS);
+    }
+    
+    /**
+     * Get the corruption level for a specific chunk (0.0 to 1.0)
+     */
+    public static float getChunkCorruptionLevel(ChunkPos chunkPos) {
+        return chunkCorruptionLevel.getOrDefault(chunkPos, 0.0f);
+    }
+    
+    /**
+     * Set the corruption level for a specific chunk
+     */
+    public static void setChunkCorruptionLevel(ChunkPos chunkPos, float level) {
+        chunkCorruptionLevel.put(chunkPos, Math.max(0.0f, Math.min(1.0f, level)));
     }
 
     private static boolean isCorruptionSource(BlockState state) {
-        // Any block class that extends CorruptionBlock is considered a source.
+        // Any block extending CorruptionBlock is considered a source
         return state.getBlock() instanceof com.corruptionmod.block.CorruptionBlock;
     }
 
     private static void attemptSpreadFrom(ServerWorld world, BlockPos pos) {
-        // Directions cardinales + up/down
+        // Cardinal directions + up/down
         BlockPos[] neighbors = new BlockPos[] {
             pos.north(), pos.south(), pos.east(), pos.west(), pos.up(), pos.down()
         };
 
-        // Priorité simple : grass/dirt > stone > wood > sand > other
-        // On cherchera un voisin convertible et on appliquera une probabilité selon le type
+        // Priority: grass/dirt > stone > wood > sand > other
         for (BlockPos npos : neighbors) {
             BlockState targetState = world.getBlockState(npos);
             if (canBeCorrupted(targetState)) {
                 float chance = corruptionChanceFor(targetState);
-                // Si la cible est de l'eau, ralentir la propagation de 80%
+                // Slow down water corruption by 80%
                 if (targetState.getMaterial() == net.minecraft.block.Material.WATER) chance *= 0.2f;
                 if (RANDOM.nextFloat() < chance) {
-                    // Choisir la variante corrompue appropriée
+                    // Choose appropriate corrupted variant
                     BlockState newState = toCorruptedVariant(targetState);
                     world.setBlockState(npos, newState);
-                    // Particules et son pour l'effet
-                    world.syncWorldEvent(2001, npos, Block.getRawIdFromState(targetState)); // effet de casse
-                    break; // un seul voisin infecté par source durant cette passe
+                    // Particles and sound effect
+                    world.syncWorldEvent(2001, npos, Block.getRawIdFromState(targetState)); // break effect
+                    break; // Only infect one neighbor per source during this pass
                 }
             }
         }
@@ -129,6 +184,7 @@ public class WorldCorruptionTicker {
         if (key.contains("log") || key.contains("wood")) return ModBlocks.ROTTED_WOOD.getDefaultState();
         if (key.contains("sand")) return ModBlocks.CORRUPTED_SAND.getDefaultState();
         if (key.contains("water")) return ModBlocks.TAINTED_WATER.getDefaultState();
+        if (key.contains("leaves")) return ModBlocks.WITHERED_LEAVES.getDefaultState();
         return ModBlocks.CORRUPTION_BLOCK.getDefaultState();
     }
 
@@ -147,6 +203,7 @@ public class WorldCorruptionTicker {
         if (key.contains("stone")) return 0.35f;
         if (key.contains("log") || key.contains("wood")) return 0.25f;
         if (key.contains("sand")) return 0.2f;
+        if (key.contains("leaves")) return 0.3f;
         // Autres
         return 0.05f;
     }

@@ -28,8 +28,8 @@ dependencies {
     modImplementation "net.fabricmc:fabric-loader:${project.loader_version}"
     modImplementation "net.fabricmc.fabric-api:fabric-api:${project.fabric_version}"
 
-    // GeckoLib (optionnel - décommentez si vous voulez des animations)
-    modImplementation 'software.bernie.geckolib:geckolib-fabric-1.20.1:4.4'
+    // GeckoLib for boss animations
+    modImplementation 'software.bernie.geckolib:geckolib-fabric-1.20.1:4.4.9'
 }
 
 processResources {

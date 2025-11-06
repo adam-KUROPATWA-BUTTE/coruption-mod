@@ -159,11 +159,22 @@ public class WorldCorruptionTicker {
 
         // Priority: grass/dirt > stone > wood > sand > other
         for (BlockPos npos : neighbors) {
+            // Check if target position is protected by crystal
+            if (PurificationManager.isProtectedByCrystal(world, npos)) {
+                continue; // Skip this position
+            }
+            
             BlockState targetState = world.getBlockState(npos);
             if (canBeCorrupted(targetState)) {
                 float chance = corruptionChanceFor(targetState);
+                
                 // Slow down water corruption by 80%
                 if (targetState.getMaterial() == net.minecraft.block.Material.WATER) chance *= 0.2f;
+                
+                // Apply warding torch protection (reduces chance)
+                float wardingProtection = PurificationManager.getWardingProtection(world, npos);
+                chance *= (1.0f - wardingProtection);
+                
                 if (RANDOM.nextFloat() < chance) {
                     // Choose appropriate corrupted variant
                     BlockState newState = toCorruptedVariant(targetState);
@@ -190,10 +201,17 @@ public class WorldCorruptionTicker {
 
     private static boolean canBeCorrupted(BlockState state) {
         Block block = state.getBlock();
-        // Empêcher la corruption à travers obsidian ou bedrock
+        
+        // Sacred Barrier blocks cannot be corrupted and stop spread
+        if (com.corruptionmod.block.SacredBarrierBlock.isBarrier(block)) {
+            return false;
+        }
+        
+        // Prevent corruption through obsidian or bedrock
         String name = block.getTranslationKey().toLowerCase();
         if (name.contains("obsidian") || name.contains("bedrock")) return false;
-        // Par défaut, on peut corrompre les blocs naturels
+        
+        // By default, natural blocks can be corrupted
         return true;
     }
 

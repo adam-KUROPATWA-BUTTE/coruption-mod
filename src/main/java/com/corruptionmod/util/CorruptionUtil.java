@@ -31,17 +31,12 @@ public class CorruptionUtil {
      * @return true if the block is a natural block type
      */
     public static boolean isNaturalBlock(BlockState state) {
-        String key = state.getBlock().getTranslationKey().toLowerCase();
-        for (String keyword : CORRUPTIBLE_BLOCK_KEYWORDS) {
-            if (key.contains(keyword)) {
-                return true;
-            }
-        }
-        return false;
+        return isNaturalBlockByName(state.getBlock().getTranslationKey().toLowerCase());
     }
     
     /**
      * Check if a block keyword represents a natural corruptible block type.
+     * Uses efficient HashSet contains checks for better performance.
      * @param blockName The block translation key (lowercased)
      * @return true if it matches a corruptible block type
      */

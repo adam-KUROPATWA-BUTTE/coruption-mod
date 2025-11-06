@@ -18,8 +18,15 @@ import java.util.Random;
  * positions in loaded chunks.
  */
 public class WorldCorruptionTicker {
-    private static final long MIN_TICKS = 20L * 20L; // 20s
-    private static final long MAX_TICKS = 20L * 40L; // 40s
+    // Configuration constants for tuning performance and behavior
+    private static final long MIN_TICKS = 20L * 20L; // 20s - Minimum time between corruption spread passes
+    private static final long MAX_TICKS = 20L * 40L; // 40s - Maximum time between corruption spread passes
+    private static final int SAMPLES_PER_PLAYER = 8; // Number of positions to sample per player per spread pass
+    private static final int SAMPLE_RADIUS = 64; // Radius around each player to sample for corruption sources
+    private static final long CLEANUP_INTERVAL = 20L * 60L * 5L; // 5 minutes - How often to cleanup old chunk data
+    private static final long CHUNK_DATA_EXPIRY = 20L * 60L * 10L; // 10 minutes - When to remove chunk data
+    private static final float CHUNK_CORRUPTION_INCREMENT = 0.01f; // How much to increase chunk corruption per spread
+    
     private static final Random RANDOM = new Random();
 
     // Next spread tick per dimension (world-level tracking)
@@ -50,7 +57,7 @@ public class WorldCorruptionTicker {
         nextSpreadTick.put(world, time + randomInterval());
         
         // Cleanup old chunk data periodically (every 5 minutes)
-        if (time % (20L * 60L * 5L) == 0) {
+        if (time % CLEANUP_INTERVAL == 0) {
             cleanupChunkData(world, time);
         }
     }
@@ -67,12 +74,12 @@ public class WorldCorruptionTicker {
             ChunkPos chunkPos = entry.getKey();
             // Remove if chunk hasn't been processed in the last 10 minutes
             Long lastProcessed = chunkLastProcessed.get(chunkPos);
-            return lastProcessed != null && (currentTime - lastProcessed) > (20L * 60L * 10L);
+            return lastProcessed != null && (currentTime - lastProcessed) > CHUNK_DATA_EXPIRY;
         });
         
         chunkLastProcessed.entrySet().removeIf(entry -> {
             Long lastProcessed = entry.getValue();
-            return (currentTime - lastProcessed) > (20L * 60L * 10L);
+            return (currentTime - lastProcessed) > CHUNK_DATA_EXPIRY;
         });
     }
 
@@ -82,9 +89,6 @@ public class WorldCorruptionTicker {
      */
     private static void spreadCorruption(ServerWorld world) {
         // Sample around connected players (loaded chunks)
-        final int SAMPLES_PER_PLAYER = 8;
-        final int SAMPLE_RADIUS = 64;
-
         for (net.minecraft.entity.player.PlayerEntity player : world.getPlayers()) {
             int px = player.getBlockX();
             int pz = player.getBlockZ();
@@ -114,7 +118,7 @@ public class WorldCorruptionTicker {
                 if (isCorruptionSource(state)) {
                     // Increase chunk corruption level
                     float currentLevel = chunkCorruptionLevel.getOrDefault(chunkPos, 0.0f);
-                    chunkCorruptionLevel.put(chunkPos, Math.min(1.0f, currentLevel + 0.01f));
+                    chunkCorruptionLevel.put(chunkPos, Math.min(1.0f, currentLevel + CHUNK_CORRUPTION_INCREMENT));
                     
                     attemptSpreadFrom(world, pos);
                 }
@@ -159,6 +163,11 @@ public class WorldCorruptionTicker {
 
         // Priority: grass/dirt > stone > wood > sand > other
         for (BlockPos npos : neighbors) {
+            // Check if the target position is within a purified zone
+            if (PurificationManager.isInPurifiedZone(world, npos)) {
+                continue; // Skip positions protected by purification crystals
+            }
+            
             BlockState targetState = world.getBlockState(npos);
             if (canBeCorrupted(targetState)) {
                 float chance = corruptionChanceFor(targetState);
@@ -183,6 +192,7 @@ public class WorldCorruptionTicker {
         if (key.contains("stone")) return ModBlocks.CORRUPTED_STONE.getDefaultState();
         if (key.contains("log") || key.contains("wood")) return ModBlocks.ROTTED_WOOD.getDefaultState();
         if (key.contains("sand")) return ModBlocks.CORRUPTED_SAND.getDefaultState();
+        if (key.contains("gravel")) return ModBlocks.CORRUPTED_STONE.getDefaultState(); // Gravel becomes corrupted stone
         if (key.contains("water")) return ModBlocks.TAINTED_WATER.getDefaultState();
         if (key.contains("leaves")) return ModBlocks.WITHERED_LEAVES.getDefaultState();
         return ModBlocks.CORRUPTION_BLOCK.getDefaultState();
@@ -190,11 +200,30 @@ public class WorldCorruptionTicker {
 
     private static boolean canBeCorrupted(BlockState state) {
         Block block = state.getBlock();
-        // Empêcher la corruption à travers obsidian ou bedrock
+        
+        // Cannot corrupt barrier blocks: obsidian, bedrock, purification crystals
+        if (block == net.minecraft.block.Blocks.OBSIDIAN || 
+            block == net.minecraft.block.Blocks.CRYING_OBSIDIAN ||
+            block == net.minecraft.block.Blocks.BEDROCK ||
+            block == ModBlocks.PURIFICATION_CRYSTAL) {
+            return false;
+        }
+        
+        // Cannot corrupt already corrupted blocks
+        if (block instanceof com.corruptionmod.block.CorruptionBlock) {
+            return false;
+        }
+        
+        // Check if block name contains barrier keywords
         String name = block.getTranslationKey().toLowerCase();
-        if (name.contains("obsidian") || name.contains("bedrock")) return false;
-        // Par défaut, on peut corrompre les blocs naturels
-        return true;
+        if (name.contains("obsidian") || name.contains("bedrock") || name.contains("purified")) {
+            return false;
+        }
+        
+        // Only allow corruption of natural blocks
+        return name.contains("grass") || name.contains("dirt") || name.contains("stone") || 
+               name.contains("sand") || name.contains("gravel") || name.contains("log") || 
+               name.contains("wood") || name.contains("water") || name.contains("leaves");
     }
 
     private static float corruptionChanceFor(BlockState state) {
@@ -203,8 +232,9 @@ public class WorldCorruptionTicker {
         if (key.contains("stone")) return 0.35f;
         if (key.contains("log") || key.contains("wood")) return 0.25f;
         if (key.contains("sand")) return 0.2f;
+        if (key.contains("gravel")) return 0.3f;
         if (key.contains("leaves")) return 0.3f;
-        // Autres
+        // Other natural blocks
         return 0.05f;
     }
 }

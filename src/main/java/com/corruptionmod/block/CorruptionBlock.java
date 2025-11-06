@@ -35,6 +35,12 @@ public class CorruptionBlock extends Block {
 
         for (Direction d : dirs) {
             BlockPos tpos = pos.offset(d);
+            
+            // Check if target position is in a purified zone
+            if (com.corruptionmod.event.PurificationManager.isInPurifiedZone(world, tpos)) {
+                continue; // Skip positions protected by purification crystals
+            }
+            
             BlockState tstate = world.getBlockState(tpos);
             if (!canCorrupt(tstate)) continue;
 
@@ -70,10 +76,29 @@ public class CorruptionBlock extends Block {
     }
 
     private boolean canCorrupt(BlockState state) {
+        Block block = state.getBlock();
+        
+        // Cannot corrupt barrier blocks
+        if (block == net.minecraft.block.Blocks.OBSIDIAN || 
+            block == net.minecraft.block.Blocks.CRYING_OBSIDIAN ||
+            block == net.minecraft.block.Blocks.BEDROCK ||
+            block == ModBlocks.PURIFICATION_CRYSTAL) {
+            return false;
+        }
+        
+        // Cannot corrupt already corrupted blocks
+        if (block instanceof CorruptionBlock) {
+            return false;
+        }
+        
+        // Check block name for additional barriers
         String key = state.getBlock().getTranslationKey().toLowerCase();
         if (key.contains("obsidian") || key.contains("bedrock") || key.contains("purified")) return false;
-        // On autorise la corruption pour la plupart des blocs naturels
-        return key.contains("grass") || key.contains("dirt") || key.contains("stone") || key.contains("sand") || key.contains("log") || key.contains("wood") || key.contains("water") || key.contains("leaves") || key.contains("gravel");
+        
+        // Only allow corruption of natural blocks
+        return key.contains("grass") || key.contains("dirt") || key.contains("stone") || 
+               key.contains("sand") || key.contains("gravel") || key.contains("log") || 
+               key.contains("wood") || key.contains("water") || key.contains("leaves");
     }
 
     private BlockState getCorruptedVariant(BlockState originalState) {
@@ -83,6 +108,7 @@ public class CorruptionBlock extends Block {
         if (key.contains("stone")) return ModBlocks.CORRUPTED_STONE.getDefaultState();
         if (key.contains("log") || key.contains("wood")) return ModBlocks.ROTTED_WOOD.getDefaultState();
         if (key.contains("sand")) return ModBlocks.CORRUPTED_SAND.getDefaultState();
+        if (key.contains("gravel")) return ModBlocks.CORRUPTED_STONE.getDefaultState(); // Gravel becomes corrupted stone
         if (key.contains("water")) return ModBlocks.TAINTED_WATER.getDefaultState();
         if (key.contains("leaves")) return ModBlocks.WITHERED_LEAVES.getDefaultState();
         // Fallback
@@ -95,8 +121,9 @@ public class CorruptionBlock extends Block {
         if (key.contains("stone")) return 0.35f;
         if (key.contains("log") || key.contains("wood")) return 0.25f;
         if (key.contains("sand")) return 0.2f;
+        if (key.contains("gravel")) return 0.3f;
         if (key.contains("leaves")) return 0.3f;
-        // Other blocks
+        // Other natural blocks
         return 0.05f;
     }
 

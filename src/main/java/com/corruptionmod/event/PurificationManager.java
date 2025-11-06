@@ -18,6 +18,7 @@ import java.util.Set;
 public class PurificationManager {
     private static final Map<ServerWorld, Set<BlockPos>> crystals = new HashMap<>();
     private static final int TICKS_PER_REVERT = 20 * 10; // 10s
+    private static final int PURIFICATION_RADIUS = 32; // Radius where corruption is blocked
     private static long tickCounter = 0;
 
     public static void register() {
@@ -33,7 +34,7 @@ public class PurificationManager {
 
         // For each crystal, find one corrupted block in radius and revert it
         for (BlockPos crystalPos : new HashSet<>(set)) {
-            BlockPos found = findNearbyCorruption(world, crystalPos, 32);
+            BlockPos found = findNearbyCorruption(world, crystalPos, PURIFICATION_RADIUS);
             if (found != null) {
                 // Replace with appropriate clean block (prototype: dirt)
                 world.setBlockState(found, net.minecraft.block.Blocks.DIRT.getDefaultState());
@@ -52,6 +53,27 @@ public class PurificationManager {
             }
         }
         return null;
+    }
+    
+    /**
+     * Check if a position is within a purified zone protected by a crystal.
+     * This prevents corruption from spreading into protected areas.
+     * @param world The world
+     * @param pos The position to check
+     * @return true if the position is protected by a purification crystal
+     */
+    public static boolean isInPurifiedZone(ServerWorld world, BlockPos pos) {
+        Set<BlockPos> set = crystals.get(world);
+        if (set == null || set.isEmpty()) return false;
+        
+        // Check if position is within purification radius of any crystal
+        for (BlockPos crystalPos : set) {
+            double distanceSquared = pos.getSquaredDistance(crystalPos);
+            if (distanceSquared <= PURIFICATION_RADIUS * PURIFICATION_RADIUS) {
+                return true;
+            }
+        }
+        return false;
     }
 
     public static void addCrystal(ServerWorld world, BlockPos pos) {

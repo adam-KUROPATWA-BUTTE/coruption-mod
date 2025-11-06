@@ -21,6 +21,9 @@ public class CorruptionMod implements ModInitializer {
         // Enregistrer les items
         ModItems.register();
         
+        // Enregistrer les effets
+        ModEffects.register();
+        
         // Enregistrer les entités
         ModEntities.register();
         

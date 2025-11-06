@@ -1,0 +1,12 @@
+{
+  "type": "minecraft:brewing",
+  "ingredient": {
+    "item": "minecraft:diamond"
+  },
+  "base": {
+    "item": "corruptionmod:purification_potion"
+  },
+  "result": {
+    "item": "corruptionmod:purification_potion_strong"
+  }
+}

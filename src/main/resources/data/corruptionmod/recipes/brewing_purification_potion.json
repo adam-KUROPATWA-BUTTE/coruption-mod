@@ -1,0 +1,12 @@
+{
+  "type": "minecraft:brewing",
+  "ingredient": {
+    "item": "minecraft:golden_carrot"
+  },
+  "base": {
+    "item": "corruptionmod:purification_potion_weak"
+  },
+  "result": {
+    "item": "corruptionmod:purification_potion"
+  }
+}

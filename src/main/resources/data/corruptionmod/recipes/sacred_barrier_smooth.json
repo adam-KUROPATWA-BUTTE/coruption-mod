@@ -1,0 +1,15 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    {
+      "item": "corruptionmod:sacred_barrier"
+    },
+    {
+      "item": "minecraft:smooth_stone"
+    }
+  ],
+  "result": {
+    "item": "corruptionmod:sacred_barrier_smooth",
+    "count": 1
+  }
+}

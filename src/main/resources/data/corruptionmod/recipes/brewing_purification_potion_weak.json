@@ -1,0 +1,12 @@
+{
+  "type": "minecraft:brewing",
+  "ingredient": {
+    "item": "minecraft:glowstone_dust"
+  },
+  "base": {
+    "item": "minecraft:awkward_potion"
+  },
+  "result": {
+    "item": "corruptionmod:purification_potion_weak"
+  }
+}

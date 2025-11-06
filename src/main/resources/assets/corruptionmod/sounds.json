@@ -1,0 +1,33 @@
+{
+  "ambient.void_theme": {
+    "sounds": [
+      {
+        "name": "minecraft:ambient/cave/cave1",
+        "volume": 0.5,
+        "pitch": 0.8
+      },
+      {
+        "name": "minecraft:ambient/cave/cave2",
+        "volume": 0.5,
+        "pitch": 0.8
+      }
+    ],
+    "subtitle": "Eerie void ambience"
+  },
+  "portal.activate": {
+    "sounds": [
+      {
+        "name": "minecraft:block/portal/trigger",
+        "volume": 1.0
+      }
+    ]
+  },
+  "portal.travel": {
+    "sounds": [
+      {
+        "name": "minecraft:block/portal/travel",
+        "volume": 0.8
+      }
+    ]
+  }
+}

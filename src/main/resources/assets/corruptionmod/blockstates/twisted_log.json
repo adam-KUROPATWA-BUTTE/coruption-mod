@@ -1,0 +1,16 @@
+{
+  "variants": {
+    "axis=x": {
+      "model": "corruptionmod:block/twisted_log",
+      "x": 90,
+      "y": 90
+    },
+    "axis=y": {
+      "model": "corruptionmod:block/twisted_log"
+    },
+    "axis=z": {
+      "model": "corruptionmod:block/twisted_log",
+      "x": 90
+    }
+  }
+}

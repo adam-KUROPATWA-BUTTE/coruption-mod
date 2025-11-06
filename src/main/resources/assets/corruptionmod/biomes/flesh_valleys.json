@@ -1,0 +1,33 @@
+{
+  "precipitation": "none",
+  "effects": {
+    "sky_color": 0x500020,
+    "fog_color": 0x300010,
+    "water_color": 0x500030,
+    "water_fog_color": 0x300018,
+    "grass_color": 0x4a2030,
+    "foliage_color": 0x3a1520,
+    "mood_sound": {
+      "sound": "minecraft:ambient.crimson_forest.mood",
+      "tick_delay": 6000,
+      "block_search_extent": 8,
+      "offset": 2.0
+    }
+  },
+  "temperature": 0.3,
+  "downfall": 0.0,
+  "category": "none",
+  "spawners": {
+    "monster": [],
+    "creature": [],
+    "ambient": [],
+    "water_creature": [],
+    "water_ambient": [],
+    "misc": []
+  },
+  "spawn_costs": {},
+  "carvers": {
+    "air": []
+  },
+  "features": []
+}

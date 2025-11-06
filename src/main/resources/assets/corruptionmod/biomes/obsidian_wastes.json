@@ -1,0 +1,34 @@
+{
+  "precipitation": "none",
+  "effects": {
+    "sky_color": 0x1a0010,
+    "fog_color": 0x0a0008,
+    "water_color": 0x800020,
+    "water_fog_color": 0x400010,
+    "grass_color": 0x1a0010,
+    "foliage_color": 0x1a0010,
+    "mood_sound": {
+      "sound": "minecraft:ambient.basalt_deltas.mood",
+      "tick_delay": 6000,
+      "block_search_extent": 8,
+      "offset": 2.0
+    },
+    "ambient_sound": "minecraft:ambient.basalt_deltas.loop"
+  },
+  "temperature": 2.0,
+  "downfall": 0.0,
+  "category": "none",
+  "spawners": {
+    "monster": [],
+    "creature": [],
+    "ambient": [],
+    "water_creature": [],
+    "water_ambient": [],
+    "misc": []
+  },
+  "spawn_costs": {},
+  "carvers": {
+    "air": []
+  },
+  "features": []
+}

@@ -1,6 +1,8 @@
 package com.corruptionmod.event;
 
 import com.corruptionmod.ModBlocks;
+import com.corruptionmod.block.CorruptionBlock;
+import com.corruptionmod.util.CorruptionUtil;
 import net.minecraft.block.BlockState;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.util.math.BlockPos;
@@ -210,7 +212,7 @@ public class WorldCorruptionTicker {
         }
         
         // Cannot corrupt already corrupted blocks
-        if (block instanceof com.corruptionmod.block.CorruptionBlock) {
+        if (block instanceof CorruptionBlock) {
             return false;
         }
         
@@ -221,9 +223,7 @@ public class WorldCorruptionTicker {
         }
         
         // Only allow corruption of natural blocks
-        return name.contains("grass") || name.contains("dirt") || name.contains("stone") || 
-               name.contains("sand") || name.contains("gravel") || name.contains("log") || 
-               name.contains("wood") || name.contains("water") || name.contains("leaves");
+        return CorruptionUtil.isNaturalBlock(state);
     }
 
     private static float corruptionChanceFor(BlockState state) {

@@ -1,6 +1,7 @@
 package com.corruptionmod.block;
 
 import com.corruptionmod.ModBlocks;
+import com.corruptionmod.util.CorruptionUtil;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Material;
@@ -96,9 +97,7 @@ public class CorruptionBlock extends Block {
         if (key.contains("obsidian") || key.contains("bedrock") || key.contains("purified")) return false;
         
         // Only allow corruption of natural blocks
-        return key.contains("grass") || key.contains("dirt") || key.contains("stone") || 
-               key.contains("sand") || key.contains("gravel") || key.contains("log") || 
-               key.contains("wood") || key.contains("water") || key.contains("leaves");
+        return CorruptionUtil.isNaturalBlock(state);
     }
 
     private BlockState getCorruptedVariant(BlockState originalState) {

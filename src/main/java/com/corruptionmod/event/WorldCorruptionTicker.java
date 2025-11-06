@@ -1,12 +1,16 @@
 package com.corruptionmod.event;
 
 import com.corruptionmod.ModBlocks;
+import com.corruptionmod.block.SacredBarrierBlock;
+import com.corruptionmod.util.CorruptionUtil;
+import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
+import net.minecraft.block.Blocks;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.ChunkPos;
 import net.minecraft.world.World;
-import net.minecraft.block.Block;
+
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Random;
@@ -165,7 +169,7 @@ public class WorldCorruptionTicker {
             }
             
             BlockState targetState = world.getBlockState(npos);
-            if (canBeCorrupted(targetState)) {
+            if (CorruptionUtil.canBeCorrupted(targetState.getBlock())) {
                 float chance = corruptionChanceFor(targetState);
                 
                 // Slow down water corruption by 80%
@@ -198,23 +202,7 @@ public class WorldCorruptionTicker {
         if (key.contains("leaves")) return ModBlocks.WITHERED_LEAVES.getDefaultState();
         return ModBlocks.CORRUPTION_BLOCK.getDefaultState();
     }
-
-    private static boolean canBeCorrupted(BlockState state) {
-        Block block = state.getBlock();
-        
-        // Sacred Barrier blocks cannot be corrupted and stop spread
-        if (com.corruptionmod.block.SacredBarrierBlock.isBarrier(block)) {
-            return false;
-        }
-        
-        // Prevent corruption through obsidian or bedrock
-        String name = block.getTranslationKey().toLowerCase();
-        if (name.contains("obsidian") || name.contains("bedrock")) return false;
-        
-        // By default, natural blocks can be corrupted
-        return true;
-    }
-
+    
     private static float corruptionChanceFor(BlockState state) {
         String key = state.getBlock().getTranslationKey().toLowerCase();
         if (key.contains("grass") || key.contains("dirt")) return 0.6f;

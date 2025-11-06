@@ -1,21 +1,13 @@
 package com.corruptionmod.potion;
 
-import com.corruptionmod.ModBlocks;
 import com.corruptionmod.ModEffects;
-import net.minecraft.block.Block;
+import com.corruptionmod.util.CorruptionUtil;
 import net.minecraft.block.BlockState;
-import net.minecraft.block.Blocks;
-import net.minecraft.entity.Entity;
-import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.effect.StatusEffectInstance;
 import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.entity.projectile.thrown.PotionEntity;
-import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.PotionItem;
 import net.minecraft.particle.ParticleTypes;
-import net.minecraft.potion.Potion;
-import net.minecraft.potion.PotionUtil;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.util.Hand;
 import net.minecraft.util.TypedActionResult;
@@ -70,30 +62,12 @@ public class PurificationPotionItem extends PotionItem {
                 for (int dy = -2; dy <= 2 && purified < maxBlocks; dy++) {
                     BlockPos pos = centerPos.add(dx, dy, dz);
                     BlockState state = world.getBlockState(pos);
-                    Block block = state.getBlock();
                     
-                    // Check if block is corrupted
-                    BlockState cleanedState = null;
-                    if (block == ModBlocks.CORRUPTED_GRASS) {
-                        cleanedState = Blocks.GRASS_BLOCK.getDefaultState();
-                    } else if (block == ModBlocks.CORRUPTED_DIRT) {
-                        cleanedState = Blocks.DIRT.getDefaultState();
-                    } else if (block == ModBlocks.CORRUPTED_STONE) {
-                        cleanedState = Blocks.STONE.getDefaultState();
-                    } else if (block == ModBlocks.ROTTED_WOOD) {
-                        cleanedState = Blocks.OAK_LOG.getDefaultState();
-                    } else if (block == ModBlocks.CORRUPTED_SAND) {
-                        cleanedState = Blocks.SAND.getDefaultState();
-                    } else if (block == ModBlocks.TAINTED_WATER) {
-                        cleanedState = Blocks.WATER.getDefaultState();
-                    } else if (block == ModBlocks.WITHERED_LEAVES) {
-                        cleanedState = Blocks.OAK_LEAVES.getDefaultState();
-                    } else if (block == ModBlocks.CORRUPTION_BLOCK) {
-                        cleanedState = Blocks.DIRT.getDefaultState();
-                    }
-                    
-                    if (cleanedState != null) {
+                    // Check if block is corrupted and clean it
+                    if (CorruptionUtil.isCorruptedBlock(state)) {
+                        BlockState cleanedState = CorruptionUtil.getCleanedVariant(state);
                         world.setBlockState(pos, cleanedState);
+                        
                         // Spawn particles
                         serverWorld.spawnParticles(ParticleTypes.HAPPY_VILLAGER,
                             pos.getX() + 0.5, pos.getY() + 0.5, pos.getZ() + 0.5,

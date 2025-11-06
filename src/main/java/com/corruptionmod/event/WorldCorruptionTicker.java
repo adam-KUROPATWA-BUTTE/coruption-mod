@@ -1,14 +1,18 @@
 package com.corruptionmod.event;
 
 import com.corruptionmod.ModBlocks;
+import com.corruptionmod.block.SacredBarrierBlock;
+import com.corruptionmod.util.CorruptionUtil;
+import net.minecraft.block.Block;
 import com.corruptionmod.block.CorruptionBlock;
 import com.corruptionmod.util.CorruptionUtil;
 import net.minecraft.block.BlockState;
+import net.minecraft.block.Blocks;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.ChunkPos;
 import net.minecraft.world.World;
-import net.minecraft.block.Block;
+
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Random;
@@ -165,16 +169,25 @@ public class WorldCorruptionTicker {
 
         // Priority: grass/dirt > stone > wood > sand > other
         for (BlockPos npos : neighbors) {
+            // Check if target position is protected by crystal
+            if (PurificationManager.isProtectedByCrystal(world, npos)) {
+                continue; // Skip this position
             // Check if the target position is within a purified zone
             if (PurificationManager.isInPurifiedZone(world, npos)) {
                 continue; // Skip positions protected by purification crystals
             }
             
             BlockState targetState = world.getBlockState(npos);
-            if (canBeCorrupted(targetState)) {
+            if (CorruptionUtil.canBeCorrupted(targetState.getBlock())) {
                 float chance = corruptionChanceFor(targetState);
+                
                 // Slow down water corruption by 80%
                 if (targetState.getMaterial() == net.minecraft.block.Material.WATER) chance *= 0.2f;
+                
+                // Apply warding torch protection (reduces chance)
+                float wardingProtection = PurificationManager.getWardingProtection(world, npos);
+                chance *= (1.0f - wardingProtection);
+                
                 if (RANDOM.nextFloat() < chance) {
                     // Choose appropriate corrupted variant
                     BlockState newState = toCorruptedVariant(targetState);
@@ -199,6 +212,7 @@ public class WorldCorruptionTicker {
         if (key.contains("leaves")) return ModBlocks.WITHERED_LEAVES.getDefaultState();
         return ModBlocks.CORRUPTION_BLOCK.getDefaultState();
     }
+    
 
     private static boolean canBeCorrupted(BlockState state) {
         Block block = state.getBlock();

@@ -12,11 +12,13 @@ import java.util.Map;
 import java.util.Set;
 
 /**
- * Manager simple pour les Purification Crystal : restaure lentement les blocs corrompus
- * dans un rayon de 32 blocs autour de chaque cristal enregistré. Prototype.
+ * Manager for Purification Crystals and Warding Torches.
+ * Crystals restore corrupted blocks slowly in a 32 block radius.
+ * Warding Torches provide smaller protection zones (8 blocks) that can stack.
  */
 public class PurificationManager {
     private static final Map<ServerWorld, Set<BlockPos>> crystals = new HashMap<>();
+    private static final Map<ServerWorld, Set<BlockPos>> wardingTorches = new HashMap<>();
     private static final int TICKS_PER_REVERT = 20 * 10; // 10s
     private static final int PURIFICATION_RADIUS = 32; // Radius where corruption is blocked
     private static long tickCounter = 0;
@@ -83,5 +85,49 @@ public class PurificationManager {
     public static void removeCrystal(ServerWorld world, BlockPos pos) {
         Set<BlockPos> set = crystals.get(world);
         if (set != null) set.remove(pos);
+    }
+    
+    public static void addWardingTorch(ServerWorld world, BlockPos pos) {
+        wardingTorches.computeIfAbsent(world, k -> new HashSet<>()).add(pos);
+    }
+    
+    public static void removeWardingTorch(ServerWorld world, BlockPos pos) {
+        Set<BlockPos> set = wardingTorches.get(world);
+        if (set != null) set.remove(pos);
+    }
+    
+    /**
+     * Checks if a position is protected by purification crystals.
+     */
+    public static boolean isProtectedByCrystal(ServerWorld world, BlockPos pos) {
+        Set<BlockPos> set = crystals.get(world);
+        if (set == null || set.isEmpty()) return false;
+        
+        for (BlockPos crystalPos : set) {
+            if (crystalPos.isWithinDistance(pos, 32)) {
+                return true;
+            }
+        }
+        return false;
+    }
+    
+    /**
+     * Calculates the warding torch protection level at a position.
+     * Multiple torches within range stack their effects.
+     * Returns 0.0 (no protection) to 1.0 (full protection).
+     */
+    public static float getWardingProtection(ServerWorld world, BlockPos pos) {
+        Set<BlockPos> set = wardingTorches.get(world);
+        if (set == null || set.isEmpty()) return 0.0f;
+        
+        int nearbyTorches = 0;
+        for (BlockPos torchPos : set) {
+            if (torchPos.isWithinDistance(pos, 8)) {
+                nearbyTorches++;
+            }
+        }
+        
+        // Each torch provides 25% protection, up to 100% with 4+ torches
+        return Math.min(1.0f, nearbyTorches * 0.25f);
     }
 }

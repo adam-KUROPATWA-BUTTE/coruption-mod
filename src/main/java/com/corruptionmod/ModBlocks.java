@@ -1,11 +1,13 @@
 package com.corruptionmod;
 
+import com.corruptionmod.block.CleansingAltarBlock;
 import com.corruptionmod.block.CorruptionAltarBlock;
 import com.corruptionmod.block.CorruptionBlock;
 import com.corruptionmod.block.CorruptedGrassBlock;
 import com.corruptionmod.block.CorruptedSandBlock;
 import com.corruptionmod.block.CorruptedStoneBlock;
 import com.corruptionmod.block.RottedWoodBlock;
+import com.corruptionmod.block.SacredBarrierBlock;
 import com.corruptionmod.block.TaintedWaterBlock;
 import com.corruptionmod.block.VoidPortalBlock;
 import com.corruptionmod.block.VoidStoneBlock;
@@ -35,6 +37,15 @@ public class ModBlocks {
     public static Block TAINTED_WATER;
     public static Block WITHERED_LEAVES;
     public static Block PURIFICATION_CRYSTAL;
+    
+    // Purification system blocks
+    public static Block CLEANSING_ALTAR;
+    public static Block WARDING_TORCH;
+    public static Block WARDING_WALL_TORCH;
+    public static Block SACRED_BARRIER;
+    public static Block SACRED_BARRIER_STONE;
+    public static Block SACRED_BARRIER_BRICK;
+    public static Block SACRED_BARRIER_SMOOTH;
 
     // Void Realm dimension blocks
     public static Block VOID_STONE;

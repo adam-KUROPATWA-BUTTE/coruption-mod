@@ -15,25 +15,26 @@ public class CorruptionMod implements ModInitializer {
     public void onInitialize() {
         LOGGER.info("Initializing The Corruption Mod...");
         
-        // Enregistrer les blocs
+        // Register blocks
         ModBlocks.register();
         
-        // Enregistrer les items
+        // Register items
         ModItems.register();
         
-        // Enregistrer les effets
+        // Register effects
         ModEffects.register();
         
-        // Enregistrer les entités
+        // Register entities
         ModEntities.register();
         
-        // Enregistrer les dimensions
+        // Register dimensions
         ModDimensions.register();
         
-        // Enregistrer la génération de monde
+        // Register world generation
         ModWorldGen.register();
-    // Enregistrer les commandes
-    com.corruptionmod.command.ModCommands.register();
+        
+        // Register commands
+        com.corruptionmod.command.ModCommands.register();
 
     // Enregistrer le manager de purification
     com.corruptionmod.event.PurificationManager.register();
@@ -41,7 +42,7 @@ public class CorruptionMod implements ModInitializer {
         // Enregistrer les effets ambiants du Void Realm
         VoidRealmAmbientEffects.register();
 
-        // Enregistrer les événements de tick pour la corruption
+        // Register tick events for corruption
         ServerTickEvents.END_WORLD_TICK.register(world -> {
             WorldCorruptionTicker.tick(world);
         });

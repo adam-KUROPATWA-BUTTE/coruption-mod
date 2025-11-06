@@ -30,5 +30,16 @@
   "carvers": {
     "air": []
   },
-  "features": []
+  "features": [
+    [],
+    [],
+    [],
+    [],
+    [],
+    [],
+    [],
+    [],
+    ["corruptionmod:obsidian_crust_ore"],
+    []
+  ]
 }

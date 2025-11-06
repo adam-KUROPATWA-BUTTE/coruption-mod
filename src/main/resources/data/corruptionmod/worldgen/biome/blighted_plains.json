@@ -29,5 +29,16 @@
   "carvers": {
     "air": []
   },
-  "features": []
+  "features": [
+    [],
+    [],
+    [],
+    [],
+    [],
+    [],
+    [],
+    ["corruptionmod:corruption_flesh_patch"],
+    [],
+    []
+  ]
 }

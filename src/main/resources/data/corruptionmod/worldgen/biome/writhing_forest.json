@@ -29,5 +29,16 @@
   "carvers": {
     "air": []
   },
-  "features": []
+  "features": [
+    [],
+    [],
+    [],
+    [],
+    [],
+    [],
+    ["corruptionmod:twisted_tree"],
+    [],
+    [],
+    []
+  ]
 }

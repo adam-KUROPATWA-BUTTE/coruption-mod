@@ -1,6 +1,7 @@
 package com.corruptionmod;
 
 import com.corruptionmod.event.WorldCorruptionTicker;
+import com.corruptionmod.world.VoidRealmAmbientEffects;
 import net.fabricmc.api.ModInitializer;
 import net.fabricmc.fabric.api.event.lifecycle.v1.ServerTickEvents;
 import org.slf4j.Logger;
@@ -33,6 +34,9 @@ public class CorruptionMod implements ModInitializer {
 
     // Enregistrer le manager de purification
     com.corruptionmod.event.PurificationManager.register();
+    
+        // Enregistrer les effets ambiants du Void Realm
+        VoidRealmAmbientEffects.register();
 
         // Enregistrer les événements de tick pour la corruption
         ServerTickEvents.END_WORLD_TICK.register(world -> {

@@ -4,5 +4,11 @@
   "block.corruptionmod.void_portal_frame": "Void Portal Frame",
   "item.corruptionmod.heart_of_void": "Heart of Void",
   "entity.corruptionmod.stranger": "The Stranger",
-  "entity.corruptionmod.xynor": "Xynor, Shadow Weaver"
+  "entity.corruptionmod.xynor": "Xynor, Shadow Weaver",
+  "entity.corruptionmod.corrupted_zombie": "Corrupted Zombie",
+  "entity.corruptionmod.corrupted_spider": "Corrupted Spider",
+  "entity.corruptionmod.corrupted_creeper": "Corrupted Creeper",
+  "entity.corruptionmod.tainted_cow": "Tainted Cow",
+  "entity.corruptionmod.hollowed_villager": "Hollowed Villager",
+  "effect.corruptionmod.corruption": "Corruption"
 }

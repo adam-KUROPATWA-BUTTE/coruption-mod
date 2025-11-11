@@ -1,5 +1,6 @@
 package com.corruptionmod;
 
+import com.corruptionmod.entity.HarbingerEntity;
 import com.corruptionmod.entity.StrangerEntity;
 import com.corruptionmod.entity.XynorEntity;
 import com.corruptionmod.entity.TentacleEntity;
@@ -19,6 +20,9 @@ import net.minecraft.util.registry.Registry;
  * Enregistre les entités du mod.
  */
 public class ModEntities {
+    // Boss entities
+    public static EntityType<HarbingerEntity> HARBINGER;
+    
     // Original entities
     public static EntityType<StrangerEntity> STRANGER;
     public static EntityType<XynorEntity> XYNOR;
@@ -38,6 +42,16 @@ public class ModEntities {
 
     // Méthode appelée au démarrage du mod
     public static void register() {
+        // Register Harbinger boss
+        HARBINGER = Registry.register(
+            Registry.ENTITY_TYPE,
+            new Identifier(CorruptionMod.MOD_ID, "harbinger"),
+            FabricEntityTypeBuilder.create(SpawnGroup.MONSTER, HarbingerEntity::new)
+                .dimensions(EntityDimensions.fixed(1.5f, 3.5f)) // Large imposing boss
+                .fireImmune()
+                .build()
+        );
+        
         // Register corrupted entities
         CORRUPTED_ZOMBIE = Registry.register(
             Registry.ENTITY_TYPE,
@@ -80,6 +94,7 @@ public class ModEntities {
         );
 
         // Register entity attributes
+        FabricDefaultAttributeRegistry.register(HARBINGER, HarbingerEntity.createHarbingerAttributes());
         FabricDefaultAttributeRegistry.register(CORRUPTED_ZOMBIE, CorruptedZombieEntity.createCorruptedZombieAttributes());
         FabricDefaultAttributeRegistry.register(CORRUPTED_SPIDER, CorruptedSpiderEntity.createCorruptedSpiderAttributes());
         FabricDefaultAttributeRegistry.register(CORRUPTED_CREEPER, CorruptedCreeperEntity.createCorruptedCreeperAttributes());

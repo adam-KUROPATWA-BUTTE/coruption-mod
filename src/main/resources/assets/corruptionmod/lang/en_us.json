@@ -27,7 +27,6 @@
   "block.corruptionmod.twisted_log": "Twisted Log",
   "block.corruptionmod.blighted_grass": "Blighted Grass",
   
-  "item.corruptionmod.heart_of_void": "Heart of Void",
   "item.corruptionmod.void_key": "Void Key",
   
   "entity.corruptionmod.stranger": "The Stranger",
@@ -37,9 +36,9 @@
   "entity.corruptionmod.corrupted_creeper": "Corrupted Creeper",
   "entity.corruptionmod.tainted_cow": "Tainted Cow",
   "entity.corruptionmod.hollowed_villager": "Hollowed Villager",
-  "entity.corruptionmod.elder_maren": "Elder Maren",
-  "entity.corruptionmod.kael": "Kael the Wanderer",
-  "entity.corruptionmod.hollow_one": "The Hollow One",
+  "entity.corruptionmod.harbinger": "The Harbinger of Entropy",
+  
+  "item.corruptionmod.harbinger_spawn_egg": "Harbinger Spawn Egg",
   
   "effect.corruptionmod.corruption": "Corruption",
   
@@ -76,5 +75,33 @@
   "biome.corruptionmod.blighted_plains": "Blighted Plains",
   "biome.corruptionmod.writhing_forest": "Writhing Forest",
   "biome.corruptionmod.obsidian_wastes": "Obsidian Wastes",
-  "biome.corruptionmod.flesh_valleys": "Flesh Valleys"
+  "biome.corruptionmod.flesh_valleys": "Flesh Valleys",
+  
+  "item.corruptionmod.harbinger_core": "Harbinger's Core",
+  "item.corruptionmod.harbinger_core.tooltip": "The corrupted essence of a defeated god",
+  "item.corruptionmod.entropy_essence": "Entropy Essence",
+  "item.corruptionmod.entropy_essence.tooltip": "Pure chaotic energy from the void",
+  "item.corruptionmod.corruption_crystal": "Corruption Crystal",
+  "item.corruptionmod.corruption_crystal.tooltip": "Crystallized corruption energy",
+  
+  "item.corruptionmod.entropy_blade": "Entropy Blade",
+  "item.corruptionmod.entropy_blade.tooltip": "A blade forged from the void itself",
+  "item.corruptionmod.entropy_blade.effect": "Inflicts Corruption on hit",
+  
+  "item.corruptionmod.harbinger_helmet": "Harbinger's Helmet",
+  "item.corruptionmod.harbinger_chestplate": "Harbinger's Chestplate",
+  "item.corruptionmod.harbinger_leggings": "Harbinger's Leggings",
+  "item.corruptionmod.harbinger_boots": "Harbinger's Boots",
+  "item.corruptionmod.harbinger_armor.tooltip": "Armor forged from the remnants of entropy",
+  "item.corruptionmod.harbinger_armor.corruption_resistance": "Provides: Night Vision",
+  "item.corruptionmod.harbinger_armor.health_boost": "Provides: Health Boost",
+  "item.corruptionmod.harbinger_armor.speed_boost": "Provides: Speed",
+  "item.corruptionmod.harbinger_armor.jump_boost": "Provides: Jump Boost",
+  
+  "item.corruptionmod.harbinger_trophy": "Harbinger's Trophy",
+  "item.corruptionmod.harbinger_trophy.tooltip": "Proof of Victory Over Entropy",
+  "item.corruptionmod.harbinger_trophy.subtitle": "The End of All Things",
+  
+  "advancement.corruptionmod.defeat_harbinger": "End of Entropy",
+  "advancement.corruptionmod.defeat_harbinger.description": "Defeat The Harbinger of Entropy"
 }

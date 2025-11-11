@@ -9,7 +9,8 @@
   "license": "MIT",
   "environment": "*",
   "entrypoints": {
-    "main": ["com.corruptionmod.CorruptionMod"]
+    "main": ["com.corruptionmod.CorruptionMod"],
+    "client": ["com.corruptionmod.CorruptionModClient"]
   },
   "mixins": [],
   "depends": {

@@ -1,0 +1,118 @@
+{
+  "npc_id": "kael",
+  "nodes": {
+    "start": {
+      "text": {
+        "en": "I've fought these corrupted beasts for months. If you want to survive, you'll need better gear.",
+        "fr": "Je combats ces bêtes corrompues depuis des mois. Si tu veux survivre, il te faut un meilleur équipement."
+      },
+      "options": [
+        {
+          "text": {
+            "en": "Can you teach me?",
+            "fr": "Peux-tu m'enseigner ?"
+          },
+          "next_node": "training"
+        },
+        {
+          "text": {
+            "en": "Tell me about your battles.",
+            "fr": "Parle-moi de tes batailles."
+          },
+          "next_node": "lore"
+        },
+        {
+          "text": {
+            "en": "I'll be on my way.",
+            "fr": "Je vais y aller."
+          },
+          "next_node": null
+        }
+      ]
+    },
+    "training": {
+      "text": {
+        "en": "Hmph. You've got spirit, I'll give you that. But spirit alone won't keep you alive against these monsters.",
+        "fr": "Hmph. Tu as du cran, je te l'accorde. Mais le cran seul ne te gardera pas en vie contre ces monstres."
+      },
+      "options": [
+        {
+          "text": {
+            "en": "I'm ready to learn.",
+            "fr": "Je suis prêt à apprendre."
+          },
+          "next_node": "start"
+        }
+      ]
+    },
+    "quest_3_available": {
+      "text": {
+        "en": "Prove yourself. Slay 10 corrupted creatures and I'll teach you how to forge corruption-resistant armor.",
+        "fr": "Fais tes preuves. Tue 10 créatures corrompues et je t'apprendrai à forger une armure résistante à la corruption."
+      },
+      "quest_id": "quest_3_cleansing",
+      "options": [
+        {
+          "text": {
+            "en": "I accept your challenge.",
+            "fr": "J'accepte ton défi."
+          },
+          "action": "start_quest_3",
+          "next_node": null
+        },
+        {
+          "text": {
+            "en": "I'm not ready yet.",
+            "fr": "Je ne suis pas encore prêt."
+          },
+          "next_node": null
+        }
+      ]
+    },
+    "quest_3_complete": {
+      "text": {
+        "en": "You've got potential. Here, take this. It'll keep you alive... for a while.",
+        "fr": "Tu as du potentiel. Tiens, prends ça. Ça te gardera en vie... pendant un moment."
+      },
+      "options": [
+        {
+          "text": {
+            "en": "Thank you.",
+            "fr": "Merci."
+          },
+          "next_node": null
+        }
+      ]
+    },
+    "lore": {
+      "text": {
+        "en": "Every scar tells a story. Each one a reminder that the corruption takes as much as it gives. I survived... but I'm not the same.",
+        "fr": "Chaque cicatrice raconte une histoire. Chacune est un rappel que la corruption prend autant qu'elle donne. J'ai survécu... mais je ne suis plus le même."
+      },
+      "options": [
+        {
+          "text": {
+            "en": "I'm sorry.",
+            "fr": "Je suis désolé."
+          },
+          "next_node": "start"
+        }
+      ]
+    },
+    "completed": {
+      "text": {
+        "en": "You've proven yourself a true warrior. Fight on, and may your blade stay sharp.",
+        "fr": "Tu as prouvé que tu es un vrai guerrier. Continue à te battre, et que ta lame reste tranchante."
+      },
+      "options": [
+        {
+          "text": {
+            "en": "Farewell, warrior.",
+            "fr": "Adieu, guerrier."
+          },
+          "next_node": null
+        }
+      ]
+    }
+  }
+}

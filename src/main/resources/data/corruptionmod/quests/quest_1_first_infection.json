@@ -1,0 +1,44 @@
+{
+  "quest_id": "quest_1_first_infection",
+  "name": {
+    "en": "The First Infection",
+    "fr": "La Première Infection"
+  },
+  "description": {
+    "en": "Elder Maren needs a sample of corrupted material from the infected zone to study. Be careful not to stay too long.",
+    "fr": "L'Ancien Maren a besoin d'un échantillon de matériau corrompu de la zone infectée pour l'étudier. Attention à ne pas rester trop longtemps."
+  },
+  "objectives": [
+    {
+      "type": "collect_item",
+      "description": {
+        "en": "Find a corrupted block sample",
+        "fr": "Trouver un échantillon de bloc corrompu"
+      },
+      "required": 1,
+      "target": "corruptionmod:corruption_block"
+    },
+    {
+      "type": "talk_to_npc",
+      "description": {
+        "en": "Return to Elder Maren",
+        "fr": "Retourner voir l'Ancien Maren"
+      },
+      "required": 1,
+      "target": "elder_maren"
+    }
+  ],
+  "rewards": [
+    {
+      "item": "minecraft:bread",
+      "count": 16
+    },
+    {
+      "item": "minecraft:gold_ingot",
+      "count": 32
+    }
+  ],
+  "xp_reward": 50,
+  "prerequisite": null,
+  "next_quest": "quest_2_echoes_past"
+}

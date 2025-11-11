@@ -12,7 +12,142 @@
         "pitch": 0.8
       }
     ],
-    "subtitle": "Eerie void ambience"
+    "subtitle": "subtitles.corruptionmod.ambient.void"
+  },
+  "ambient.corruption_whispers": {
+    "sounds": [
+      {
+        "name": "minecraft:ambient/cave/cave13",
+        "volume": 0.3,
+        "pitch": 0.7
+      }
+    ],
+    "subtitle": "subtitles.corruptionmod.ambient.whispers"
+  },
+  "ambient.corruption_heartbeat": {
+    "sounds": [
+      {
+        "name": "minecraft:entity/warden/heartbeat",
+        "volume": 0.4,
+        "pitch": 0.8
+      }
+    ],
+    "subtitle": "subtitles.corruptionmod.ambient.heartbeat"
+  },
+  "block.corruption.spread": {
+    "sounds": [
+      {
+        "name": "minecraft:block/sculk/spread",
+        "volume": 0.6,
+        "pitch": 0.9
+      }
+    ],
+    "subtitle": "subtitles.corruptionmod.block.spread"
+  },
+  "block.corruption.break": {
+    "sounds": [
+      {
+        "name": "minecraft:block/slime_block/break",
+        "volume": 0.8,
+        "pitch": 0.7
+      }
+    ],
+    "subtitle": "subtitles.corruptionmod.block.break"
+  },
+  "block.corruption.place": {
+    "sounds": [
+      {
+        "name": "minecraft:block/slime_block/place",
+        "volume": 0.8,
+        "pitch": 0.7
+      }
+    ],
+    "subtitle": "subtitles.corruptionmod.block.place"
+  },
+  "block.corruption.step": {
+    "sounds": [
+      {
+        "name": "minecraft:block/slime_block/step",
+        "volume": 0.5,
+        "pitch": 0.8
+      }
+    ],
+    "subtitle": "subtitles.corruptionmod.block.step"
+  },
+  "block.purification.activate": {
+    "sounds": [
+      {
+        "name": "minecraft:block/beacon/activate",
+        "volume": 0.7,
+        "pitch": 1.2
+      },
+      {
+        "name": "minecraft:entity/experience_orb/pickup",
+        "volume": 0.5,
+        "pitch": 1.5
+      }
+    ],
+    "subtitle": "subtitles.corruptionmod.block.purify"
+  },
+  "block.crystal.chime": {
+    "sounds": [
+      {
+        "name": "minecraft:block/amethyst_block/chime",
+        "volume": 0.8,
+        "pitch": 1.0
+      }
+    ],
+    "subtitle": "subtitles.corruptionmod.block.chime"
+  },
+  "entity.corrupted.hurt": {
+    "sounds": [
+      {
+        "name": "minecraft:entity/zombie/hurt",
+        "volume": 0.7,
+        "pitch": 0.8
+      }
+    ],
+    "subtitle": "subtitles.corruptionmod.entity.hurt"
+  },
+  "entity.corrupted.death": {
+    "sounds": [
+      {
+        "name": "minecraft:entity/zombie/death",
+        "volume": 0.8,
+        "pitch": 0.7
+      }
+    ],
+    "subtitle": "subtitles.corruptionmod.entity.death"
+  },
+  "entity.corrupted.ambient": {
+    "sounds": [
+      {
+        "name": "minecraft:entity/zombie/ambient",
+        "volume": 0.5,
+        "pitch": 0.7
+      }
+    ],
+    "subtitle": "subtitles.corruptionmod.entity.ambient"
+  },
+  "entity.boss.roar": {
+    "sounds": [
+      {
+        "name": "minecraft:entity/warden/roar",
+        "volume": 1.0,
+        "pitch": 0.8
+      }
+    ],
+    "subtitle": "subtitles.corruptionmod.boss.roar"
+  },
+  "entity.boss.attack": {
+    "sounds": [
+      {
+        "name": "minecraft:entity/warden/sonic_boom",
+        "volume": 0.9,
+        "pitch": 0.9
+      }
+    ],
+    "subtitle": "subtitles.corruptionmod.boss.attack"
   },
   "portal.activate": {
     "sounds": [
@@ -20,7 +155,8 @@
         "name": "minecraft:block/portal/trigger",
         "volume": 1.0
       }
-    ]
+    ],
+    "subtitle": "subtitles.corruptionmod.portal.activate"
   },
   "portal.travel": {
     "sounds": [
@@ -28,6 +164,28 @@
         "name": "minecraft:block/portal/travel",
         "volume": 0.8
       }
+    ],
+    "subtitle": "subtitles.corruptionmod.portal.travel"
+  },
+  "music.void_realm": {
+    "sounds": [
+      {
+        "name": "minecraft:music/game/nether/crimson_forest",
+        "volume": 0.5,
+        "pitch": 0.8,
+        "stream": true
+      }
+    ]
+  },
+  "music.boss_fight": {
+    "sounds": [
+      {
+        "name": "minecraft:music/game/end/boss",
+        "volume": 0.7,
+        "pitch": 0.9,
+        "stream": true
+      }
     ]
   }
 }
+

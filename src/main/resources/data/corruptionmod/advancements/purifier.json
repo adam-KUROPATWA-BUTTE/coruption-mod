@@ -1,0 +1,26 @@
+{
+  "display": {
+    "icon": {
+      "item": "corruptionmod:purification_crystal"
+    },
+    "title": {
+      "translate": "advancement.corruptionmod.purifier.title"
+    },
+    "description": {
+      "translate": "advancement.corruptionmod.purifier.description"
+    },
+    "frame": "task",
+    "show_toast": true,
+    "announce_to_chat": true,
+    "hidden": false
+  },
+  "parent": "corruptionmod:first_contact",
+  "criteria": {
+    "purified_blocks": {
+      "trigger": "minecraft:impossible"
+    }
+  },
+  "rewards": {
+    "experience": 50
+  }
+}

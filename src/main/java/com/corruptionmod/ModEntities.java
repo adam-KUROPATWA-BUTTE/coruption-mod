@@ -14,7 +14,8 @@ import net.minecraft.entity.EntityDimensions;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.SpawnGroup;
 import net.minecraft.util.Identifier;
-import net.minecraft.util.registry.Registry;
+import net.minecraft.registry.Registries;
+import net.minecraft.registry.Registry;
 
 /**
  * Enregistre les entités du mod.
@@ -44,8 +45,8 @@ public class ModEntities {
     public static void register() {
         // Register Harbinger boss
         HARBINGER = Registry.register(
-            Registry.ENTITY_TYPE,
-            new Identifier(CorruptionMod.MOD_ID, "harbinger"),
+            Registries.ENTITY_TYPE,
+            Identifier.of(CorruptionMod.MOD_ID, "harbinger"),
             FabricEntityTypeBuilder.create(SpawnGroup.MONSTER, HarbingerEntity::new)
                 .dimensions(EntityDimensions.fixed(1.5f, 3.5f)) // Large imposing boss
                 .fireImmune()
@@ -54,40 +55,40 @@ public class ModEntities {
         
         // Register corrupted entities
         CORRUPTED_ZOMBIE = Registry.register(
-            Registry.ENTITY_TYPE,
-            new Identifier(CorruptionMod.MOD_ID, "corrupted_zombie"),
+            Registries.ENTITY_TYPE,
+            Identifier.of(CorruptionMod.MOD_ID, "corrupted_zombie"),
             FabricEntityTypeBuilder.create(SpawnGroup.MONSTER, CorruptedZombieEntity::new)
                 .dimensions(EntityDimensions.fixed(0.6f, 1.95f))
                 .build()
         );
 
         CORRUPTED_SPIDER = Registry.register(
-            Registry.ENTITY_TYPE,
-            new Identifier(CorruptionMod.MOD_ID, "corrupted_spider"),
+            Registries.ENTITY_TYPE,
+            Identifier.of(CorruptionMod.MOD_ID, "corrupted_spider"),
             FabricEntityTypeBuilder.create(SpawnGroup.MONSTER, CorruptedSpiderEntity::new)
                 .dimensions(EntityDimensions.fixed(1.4f, 0.9f))
                 .build()
         );
 
         CORRUPTED_CREEPER = Registry.register(
-            Registry.ENTITY_TYPE,
-            new Identifier(CorruptionMod.MOD_ID, "corrupted_creeper"),
+            Registries.ENTITY_TYPE,
+            Identifier.of(CorruptionMod.MOD_ID, "corrupted_creeper"),
             FabricEntityTypeBuilder.create(SpawnGroup.MONSTER, CorruptedCreeperEntity::new)
                 .dimensions(EntityDimensions.fixed(0.6f, 1.7f))
                 .build()
         );
 
         TAINTED_COW = Registry.register(
-            Registry.ENTITY_TYPE,
-            new Identifier(CorruptionMod.MOD_ID, "tainted_cow"),
+            Registries.ENTITY_TYPE,
+            Identifier.of(CorruptionMod.MOD_ID, "tainted_cow"),
             FabricEntityTypeBuilder.create(SpawnGroup.MONSTER, TaintedCowEntity::new)
                 .dimensions(EntityDimensions.fixed(0.9f, 1.4f))
                 .build()
         );
 
         HOLLOWED_VILLAGER = Registry.register(
-            Registry.ENTITY_TYPE,
-            new Identifier(CorruptionMod.MOD_ID, "hollowed_villager"),
+            Registries.ENTITY_TYPE,
+            Identifier.of(CorruptionMod.MOD_ID, "hollowed_villager"),
             FabricEntityTypeBuilder.create(SpawnGroup.MONSTER, HollowedVillagerEntity::new)
                 .dimensions(EntityDimensions.fixed(0.6f, 1.95f))
                 .build()
@@ -103,24 +104,24 @@ public class ModEntities {
         
         // Register NPC entities
         ELDER_MAREN = Registry.register(
-            Registry.ENTITY_TYPE,
-            new Identifier(CorruptionMod.MOD_ID, "elder_maren"),
+            Registries.ENTITY_TYPE,
+            Identifier.of(CorruptionMod.MOD_ID, "elder_maren"),
             FabricEntityTypeBuilder.create(SpawnGroup.CREATURE, ElderMarenEntity::new)
                 .dimensions(EntityDimensions.fixed(0.6f, 1.95f))
                 .build()
         );
         
         KAEL = Registry.register(
-            Registry.ENTITY_TYPE,
-            new Identifier(CorruptionMod.MOD_ID, "kael"),
+            Registries.ENTITY_TYPE,
+            Identifier.of(CorruptionMod.MOD_ID, "kael"),
             FabricEntityTypeBuilder.create(SpawnGroup.CREATURE, KaelEntity::new)
                 .dimensions(EntityDimensions.fixed(0.6f, 1.95f))
                 .build()
         );
         
         HOLLOW_ONE = Registry.register(
-            Registry.ENTITY_TYPE,
-            new Identifier(CorruptionMod.MOD_ID, "hollow_one"),
+            Registries.ENTITY_TYPE,
+            Identifier.of(CorruptionMod.MOD_ID, "hollow_one"),
             FabricEntityTypeBuilder.create(SpawnGroup.CREATURE, HollowOneEntity::new)
                 .dimensions(EntityDimensions.fixed(0.6f, 1.95f))
                 .build()

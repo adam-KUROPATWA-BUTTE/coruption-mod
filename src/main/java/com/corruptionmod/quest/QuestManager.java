@@ -10,7 +10,7 @@ import net.minecraft.nbt.NbtList;
 import net.minecraft.nbt.NbtString;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.util.Identifier;
-import net.minecraft.util.registry.Registry;
+import net.minecraft.registry.Registries;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -59,7 +59,7 @@ public class QuestManager {
                     String itemId = rewardJson.get("item").getAsString();
                     int count = rewardJson.has("count") ? rewardJson.get("count").getAsInt() : 1;
                     
-                    Item item = Registry.ITEM.get(new Identifier(itemId));
+                    Item item = Registry.ITEM.get(Identifier.of(itemId));
                     if (item != null) {
                         rewards.add(new ItemStack(item, count));
                     }

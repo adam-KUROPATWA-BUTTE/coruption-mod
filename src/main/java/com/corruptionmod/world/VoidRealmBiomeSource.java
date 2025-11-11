@@ -2,8 +2,9 @@ package com.corruptionmod.world;
 
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
-import net.minecraft.util.registry.Registry;
-import net.minecraft.util.registry.RegistryEntry;
+import net.minecraft.registry.Registry;
+import net.minecraft.registry.entry.RegistryEntry;
+import net.minecraft.registry.RegistryKeys;
 import net.minecraft.world.biome.Biome;
 import net.minecraft.world.biome.source.BiomeSource;
 import net.minecraft.world.biome.source.util.MultiNoiseUtil;
@@ -18,7 +19,7 @@ import java.util.stream.Stream;
 public class VoidRealmBiomeSource extends BiomeSource {
     public static final Codec<VoidRealmBiomeSource> CODEC = RecordCodecBuilder.create(instance ->
             instance.group(
-                    Registry.BIOME_KEY.codec().fieldOf("biome_registry").forGetter(source -> source.biomeRegistry)
+                    RegistryKeys.BIOME.codec().fieldOf("biome_registry").forGetter(source -> source.biomeRegistry)
             ).apply(instance, VoidRealmBiomeSource::new)
     );
 

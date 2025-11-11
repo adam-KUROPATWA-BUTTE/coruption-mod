@@ -1,0 +1,30 @@
+{
+  "display": {
+    "icon": {
+      "item": "corruptionmod:corruption_block"
+    },
+    "title": {
+      "translate": "advancement.corruptionmod.root.title"
+    },
+    "description": {
+      "translate": "advancement.corruptionmod.root.description"
+    },
+    "frame": "task",
+    "show_toast": true,
+    "announce_to_chat": true,
+    "hidden": false,
+    "background": "minecraft:textures/gui/advancements/backgrounds/stone.png"
+  },
+  "criteria": {
+    "has_corruption": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": ["corruptionmod:corruption_block"]
+          }
+        ]
+      }
+    }
+  }
+}

@@ -16,11 +16,6 @@
   "block.corruptionmod.sacred_barrier_stone": "Sacred Barrier (Stone)",
   "block.corruptionmod.sacred_barrier_brick": "Sacred Barrier (Brick)",
   "block.corruptionmod.sacred_barrier_smooth": "Sacred Barrier (Smooth)",
-  "item.corruptionmod.heart_of_void": "Heart of Void",
-  "item.corruptionmod.purification_potion_weak": "Weak Purification Potion",
-  "item.corruptionmod.purification_potion": "Purification Potion",
-  "item.corruptionmod.purification_potion_strong": "Strong Purification Potion",
-  "effect.corruptionmod.purification": "Purification",
   "block.corruptionmod.void_stone": "Void Stone",
   "block.corruptionmod.corruption_flesh": "Corruption Flesh",
   "block.corruptionmod.obsidian_crust": "Obsidian Crust",
@@ -29,6 +24,9 @@
   
   "item.corruptionmod.heart_of_void": "Heart of Void",
   "item.corruptionmod.void_key": "Void Key",
+  "item.corruptionmod.purification_potion_weak": "Weak Purification Potion",
+  "item.corruptionmod.purification_potion": "Purification Potion",
+  "item.corruptionmod.purification_potion_strong": "Strong Purification Potion",
   
   "entity.corruptionmod.stranger": "The Stranger",
   "entity.corruptionmod.xynor": "Xynor, Shadow Weaver",
@@ -39,9 +37,40 @@
   "entity.corruptionmod.hollowed_villager": "Hollowed Villager",
   
   "effect.corruptionmod.corruption": "Corruption",
+  "effect.corruptionmod.purification": "Purification",
   
   "biome.corruptionmod.blighted_plains": "Blighted Plains",
   "biome.corruptionmod.writhing_forest": "Writhing Forest",
   "biome.corruptionmod.obsidian_wastes": "Obsidian Wastes",
-  "biome.corruptionmod.flesh_valleys": "Flesh Valleys"
+  "biome.corruptionmod.flesh_valleys": "Flesh Valleys",
+  
+  "advancement.corruptionmod.root.title": "The Corruption",
+  "advancement.corruptionmod.root.description": "The Void awakens...",
+  "advancement.corruptionmod.first_contact.title": "First Contact",
+  "advancement.corruptionmod.first_contact.description": "Get corrupted for the first time",
+  "advancement.corruptionmod.purifier.title": "Purifier",
+  "advancement.corruptionmod.purifier.description": "Cleanse 100 corrupted blocks",
+  "advancement.corruptionmod.corruption_hunter.title": "Corruption Hunter",
+  "advancement.corruptionmod.corruption_hunter.description": "Defeat 50 corrupted entities",
+  "advancement.corruptionmod.into_the_void.title": "Into the Void",
+  "advancement.corruptionmod.into_the_void.description": "Enter the Void Realm",
+  "advancement.corruptionmod.boss_slayer.title": "Boss Slayer",
+  "advancement.corruptionmod.boss_slayer.description": "Defeat Xynor, Shadow Weaver",
+  
+  "subtitles.corruptionmod.ambient.void": "Eerie void ambience",
+  "subtitles.corruptionmod.ambient.whispers": "Corruption whispers",
+  "subtitles.corruptionmod.ambient.heartbeat": "Corruption heartbeat",
+  "subtitles.corruptionmod.block.spread": "Corruption spreads",
+  "subtitles.corruptionmod.block.break": "Corruption breaks",
+  "subtitles.corruptionmod.block.place": "Corruption placed",
+  "subtitles.corruptionmod.block.step": "Corruption squelches",
+  "subtitles.corruptionmod.block.purify": "Purification activates",
+  "subtitles.corruptionmod.block.chime": "Crystal chimes",
+  "subtitles.corruptionmod.entity.hurt": "Corrupted entity hurts",
+  "subtitles.corruptionmod.entity.death": "Corrupted entity dies",
+  "subtitles.corruptionmod.entity.ambient": "Corrupted entity groans",
+  "subtitles.corruptionmod.boss.roar": "Boss roars",
+  "subtitles.corruptionmod.boss.attack": "Boss attacks",
+  "subtitles.corruptionmod.portal.activate": "Portal activates",
+  "subtitles.corruptionmod.portal.travel": "Portal whooshes"
 }

@@ -1,0 +1,26 @@
+{
+  "display": {
+    "icon": {
+      "item": "minecraft:diamond_sword"
+    },
+    "title": {
+      "translate": "advancement.corruptionmod.corruption_hunter.title"
+    },
+    "description": {
+      "translate": "advancement.corruptionmod.corruption_hunter.description"
+    },
+    "frame": "challenge",
+    "show_toast": true,
+    "announce_to_chat": true,
+    "hidden": false
+  },
+  "parent": "corruptionmod:first_contact",
+  "criteria": {
+    "killed_corrupted": {
+      "trigger": "minecraft:impossible"
+    }
+  },
+  "rewards": {
+    "experience": 100
+  }
+}

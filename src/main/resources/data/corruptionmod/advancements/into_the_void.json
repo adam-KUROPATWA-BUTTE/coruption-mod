@@ -1,0 +1,29 @@
+{
+  "display": {
+    "icon": {
+      "item": "corruptionmod:void_portal_frame"
+    },
+    "title": {
+      "translate": "advancement.corruptionmod.into_the_void.title"
+    },
+    "description": {
+      "translate": "advancement.corruptionmod.into_the_void.description"
+    },
+    "frame": "goal",
+    "show_toast": true,
+    "announce_to_chat": true,
+    "hidden": false
+  },
+  "parent": "corruptionmod:first_contact",
+  "criteria": {
+    "entered_void": {
+      "trigger": "minecraft:changed_dimension",
+      "conditions": {
+        "to": "corruptionmod:le_neant"
+      }
+    }
+  },
+  "rewards": {
+    "experience": 150
+  }
+}

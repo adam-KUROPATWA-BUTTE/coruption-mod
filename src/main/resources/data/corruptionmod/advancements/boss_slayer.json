@@ -1,0 +1,31 @@
+{
+  "display": {
+    "icon": {
+      "item": "minecraft:nether_star"
+    },
+    "title": {
+      "translate": "advancement.corruptionmod.boss_slayer.title"
+    },
+    "description": {
+      "translate": "advancement.corruptionmod.boss_slayer.description"
+    },
+    "frame": "challenge",
+    "show_toast": true,
+    "announce_to_chat": true,
+    "hidden": false
+  },
+  "parent": "corruptionmod:into_the_void",
+  "criteria": {
+    "killed_boss": {
+      "trigger": "minecraft:player_killed_entity",
+      "conditions": {
+        "entity": {
+          "type": "corruptionmod:xynor"
+        }
+      }
+    }
+  },
+  "rewards": {
+    "experience": 500
+  }
+}

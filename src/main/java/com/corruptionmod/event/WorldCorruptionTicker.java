@@ -3,9 +3,10 @@ package com.corruptionmod.event;
 import com.corruptionmod.ModBlocks;
 import com.corruptionmod.block.SacredBarrierBlock;
 import com.corruptionmod.util.CorruptionUtil;
+import com.corruptionmod.util.PerformanceMonitor;
+import com.corruptionmod.config.CorruptionConfig;
 import net.minecraft.block.Block;
 import com.corruptionmod.block.CorruptionBlock;
-import com.corruptionmod.util.CorruptionUtil;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
 import net.minecraft.server.world.ServerWorld;
@@ -25,14 +26,6 @@ import java.util.Random;
  */
 public class WorldCorruptionTicker {
     // Configuration constants for tuning performance and behavior
-    private static final long MIN_TICKS = 20L * 20L; // 20s - Minimum time between corruption spread passes
-    private static final long MAX_TICKS = 20L * 40L; // 40s - Maximum time between corruption spread passes
-    private static final int SAMPLES_PER_PLAYER = 8; // Number of positions to sample per player per spread pass
-    private static final int SAMPLE_RADIUS = 64; // Radius around each player to sample for corruption sources
-    private static final long CLEANUP_INTERVAL = 20L * 60L * 5L; // 5 minutes - How often to cleanup old chunk data
-    private static final long CHUNK_DATA_EXPIRY = 20L * 60L * 10L; // 10 minutes - When to remove chunk data
-    private static final float CHUNK_CORRUPTION_INCREMENT = 0.01f; // How much to increase chunk corruption per spread
-    
     private static final Random RANDOM = new Random();
 
     // Next spread tick per dimension (world-level tracking)
@@ -51,49 +44,74 @@ public class WorldCorruptionTicker {
     public static void tick(ServerWorld world) {
         if (world == null || world.isClient) return;
 
+        long startTime = System.nanoTime();
+        
         long time = world.getTime();
         long next = nextSpreadTick.computeIfAbsent(world, w -> time + randomInterval());
 
         if (time < next) return;
 
         // Execute corruption spread pass
-        spreadCorruption(world);
+        int blocksCorrupted = spreadCorruption(world);
+        
+        // Record performance metrics
+        long elapsedTime = System.nanoTime() - startTime;
+        PerformanceMonitor.recordTickTime(elapsedTime);
+        PerformanceMonitor.recordSpreadEvent(blocksCorrupted);
 
         // Schedule next spread
         nextSpreadTick.put(world, time + randomInterval());
         
-        // Cleanup old chunk data periodically (every 5 minutes)
-        if (time % CLEANUP_INTERVAL == 0) {
+        // Cleanup old chunk data periodically
+        long cleanupInterval = 20L * 60L * CorruptionConfig.chunkDataCleanupMinutes;
+        if (time % cleanupInterval == 0) {
             cleanupChunkData(world, time);
         }
     }
 
     private static long randomInterval() {
-        return MIN_TICKS + (long)(RANDOM.nextDouble() * (MAX_TICKS - MIN_TICKS));
+        long minTicks = 20L * CorruptionConfig.corruptionSpreadMinSeconds;
+        long maxTicks = 20L * CorruptionConfig.corruptionSpreadMaxSeconds;
+        return minTicks + (long)(RANDOM.nextDouble() * (maxTicks - minTicks));
     }
 
     /**
      * Cleanup chunk tracking data for unloaded chunks
      */
     private static void cleanupChunkData(ServerWorld world, long currentTime) {
+        long expiryTime = 20L * 60L * CorruptionConfig.chunkDataExpiryMinutes;
+        
         chunkCorruptionLevel.entrySet().removeIf(entry -> {
             ChunkPos chunkPos = entry.getKey();
-            // Remove if chunk hasn't been processed in the last 10 minutes
+            // Remove if chunk hasn't been processed recently
             Long lastProcessed = chunkLastProcessed.get(chunkPos);
-            return lastProcessed != null && (currentTime - lastProcessed) > CHUNK_DATA_EXPIRY;
+            if (lastProcessed != null && (currentTime - lastProcessed) > expiryTime) {
+                PerformanceMonitor.clearChunkData(chunkPos);
+                return true;
+            }
+            return false;
         });
         
         chunkLastProcessed.entrySet().removeIf(entry -> {
             Long lastProcessed = entry.getValue();
-            return (currentTime - lastProcessed) > CHUNK_DATA_EXPIRY;
+            return (currentTime - lastProcessed) > expiryTime;
         });
     }
 
     /**
      * Spread corruption logic: samples positions in loaded chunks
      * and attempts to spread corruption from source blocks.
+     * Returns the number of blocks corrupted this pass.
      */
-    private static void spreadCorruption(ServerWorld world) {
+    private static int spreadCorruption(ServerWorld world) {
+        if (!CorruptionConfig.enableOverworldCorruption && world.getRegistryKey() == World.OVERWORLD) {
+            return 0;
+        }
+        
+        int blocksCorrupted = 0;
+        int samplesPerPlayer = CorruptionConfig.samplesPerPlayer;
+        int sampleRadius = CorruptionConfig.sampleRadius;
+        
         // Sample around connected players (loaded chunks)
         for (net.minecraft.entity.player.PlayerEntity player : world.getPlayers()) {
             int px = player.getBlockX();
@@ -103,9 +121,9 @@ public class WorldCorruptionTicker {
             ChunkPos playerChunk = new ChunkPos(px >> 4, pz >> 4);
             chunkLastProcessed.put(playerChunk, world.getTime());
 
-            for (int s = 0; s < SAMPLES_PER_PLAYER; s++) {
-                int x = px + RANDOM.nextInt(SAMPLE_RADIUS * 2 + 1) - SAMPLE_RADIUS;
-                int z = pz + RANDOM.nextInt(SAMPLE_RADIUS * 2 + 1) - SAMPLE_RADIUS;
+            for (int s = 0; s < samplesPerPlayer; s++) {
+                int x = px + RANDOM.nextInt(sampleRadius * 2 + 1) - sampleRadius;
+                int z = pz + RANDOM.nextInt(sampleRadius * 2 + 1) - sampleRadius;
                 int y = world.getTopY() - 1;
 
                 BlockPos pos = new BlockPos(x, y, z);
@@ -124,12 +142,20 @@ public class WorldCorruptionTicker {
                 if (isCorruptionSource(state)) {
                     // Increase chunk corruption level
                     float currentLevel = chunkCorruptionLevel.getOrDefault(chunkPos, 0.0f);
-                    chunkCorruptionLevel.put(chunkPos, Math.min(1.0f, currentLevel + CHUNK_CORRUPTION_INCREMENT));
+                    float increment = 0.01f;
+                    chunkCorruptionLevel.put(chunkPos, Math.min(1.0f, currentLevel + increment));
                     
-                    attemptSpreadFrom(world, pos);
+                    // Update performance monitor
+                    PerformanceMonitor.incrementCorruptedBlocks(chunkPos, 1);
+                    
+                    if (attemptSpreadFrom(world, pos)) {
+                        blocksCorrupted++;
+                    }
                 }
             }
         }
+        
+        return blocksCorrupted;
     }
 
     /**
@@ -138,8 +164,9 @@ public class WorldCorruptionTicker {
     public static void forceSpread(ServerWorld world) {
         if (world == null || world.isClient) return;
         spreadCorruption(world);
-        // Reduce delay before next pass
-        nextSpreadTick.put(world, world.getTime() + MIN_TICKS);
+        // Reduce delay before next pass using config values
+        long minTicks = 20L * CorruptionConfig.corruptionSpreadMinSeconds;
+        nextSpreadTick.put(world, world.getTime() + minTicks);
     }
     
     /**
@@ -161,7 +188,7 @@ public class WorldCorruptionTicker {
         return state.getBlock() instanceof com.corruptionmod.block.CorruptionBlock;
     }
 
-    private static void attemptSpreadFrom(ServerWorld world, BlockPos pos) {
+    private static boolean attemptSpreadFrom(ServerWorld world, BlockPos pos) {
         // Cardinal directions + up/down
         BlockPos[] neighbors = new BlockPos[] {
             pos.north(), pos.south(), pos.east(), pos.west(), pos.up(), pos.down()
@@ -172,6 +199,7 @@ public class WorldCorruptionTicker {
             // Check if target position is protected by crystal
             if (PurificationManager.isProtectedByCrystal(world, npos)) {
                 continue; // Skip this position
+            }
             // Check if the target position is within a purified zone
             if (PurificationManager.isInPurifiedZone(world, npos)) {
                 continue; // Skip positions protected by purification crystals
@@ -180,6 +208,9 @@ public class WorldCorruptionTicker {
             BlockState targetState = world.getBlockState(npos);
             if (CorruptionUtil.canBeCorrupted(targetState.getBlock())) {
                 float chance = corruptionChanceFor(targetState);
+                
+                // Apply global corruption multiplier
+                chance *= CorruptionConfig.corruptionSpreadMultiplier;
                 
                 // Slow down water corruption by 80%
                 if (targetState.getMaterial() == net.minecraft.block.Material.WATER) chance *= 0.2f;
@@ -194,10 +225,12 @@ public class WorldCorruptionTicker {
                     world.setBlockState(npos, newState);
                     // Particles and sound effect
                     world.syncWorldEvent(2001, npos, Block.getRawIdFromState(targetState)); // break effect
-                    break; // Only infect one neighbor per source during this pass
+                    return true; // Block was corrupted
                 }
             }
         }
+        
+        return false; // No block was corrupted
     }
 
     private static BlockState toCorruptedVariant(BlockState original) {

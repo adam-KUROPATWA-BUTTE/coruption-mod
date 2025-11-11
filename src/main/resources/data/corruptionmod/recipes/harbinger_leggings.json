@@ -1,0 +1,20 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "EEE",
+    "C C",
+    "E E"
+  ],
+  "key": {
+    "C": {
+      "item": "corruptionmod:harbinger_core"
+    },
+    "E": {
+      "item": "corruptionmod:entropy_essence"
+    }
+  },
+  "result": {
+    "item": "corruptionmod:harbinger_leggings",
+    "count": 1
+  }
+}

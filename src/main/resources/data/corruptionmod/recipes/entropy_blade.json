@@ -1,0 +1,23 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    " C ",
+    "CEC",
+    " D "
+  ],
+  "key": {
+    "C": {
+      "item": "corruptionmod:harbinger_core"
+    },
+    "E": {
+      "item": "corruptionmod:entropy_essence"
+    },
+    "D": {
+      "item": "minecraft:diamond_sword"
+    }
+  },
+  "result": {
+    "item": "corruptionmod:entropy_blade",
+    "count": 1
+  }
+}

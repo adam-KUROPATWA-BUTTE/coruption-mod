@@ -5,6 +5,7 @@ import com.corruptionmod.potion.PurificationPotionItem;
 import net.minecraft.item.ArmorItem;
 import net.minecraft.item.BlockItem;
 import net.minecraft.item.Item;
+import net.minecraft.item.SpawnEggItem;
 import net.minecraft.item.VerticallyAttachableBlockItem;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.math.Direction;
@@ -32,6 +33,7 @@ public class ModItems {
     public static Item HARBINGER_LEGGINGS;
     public static Item HARBINGER_BOOTS;
     public static Item HARBINGER_TROPHY;
+    public static Item HARBINGER_SPAWN_EGG;
     
     public static void register() {
         // Register block items for all blocks
@@ -143,6 +145,13 @@ public class ModItems {
             Registry.ITEM,
             new Identifier(CorruptionMod.MOD_ID, "harbinger_trophy"),
             new HarbingerTrophyItem(new Item.Settings().maxCount(1))
+        );
+        
+        // Register spawn egg
+        HARBINGER_SPAWN_EGG = Registry.register(
+            Registry.ITEM,
+            new Identifier(CorruptionMod.MOD_ID, "harbinger_spawn_egg"),
+            new SpawnEggItem(ModEntities.HARBINGER, 0x5A0A5A, 0x8B008B, new Item.Settings())
         );
         
         CorruptionMod.LOGGER.info("Registering mod items");

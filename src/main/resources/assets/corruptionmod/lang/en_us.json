@@ -38,6 +38,8 @@
   "entity.corruptionmod.hollowed_villager": "Hollowed Villager",
   "entity.corruptionmod.harbinger": "The Harbinger of Entropy",
   
+  "item.corruptionmod.harbinger_spawn_egg": "Harbinger Spawn Egg",
+  
   "effect.corruptionmod.corruption": "Corruption",
   
   "biome.corruptionmod.blighted_plains": "Blighted Plains",

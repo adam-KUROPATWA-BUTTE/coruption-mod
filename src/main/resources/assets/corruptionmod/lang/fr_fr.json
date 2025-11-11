@@ -1,6 +1,8 @@
 {
   "entity.corruptionmod.harbinger": "Le Messager de l'Entropie",
   
+  "item.corruptionmod.harbinger_spawn_egg": "Œuf d'apparition du Messager",
+  
   "item.corruptionmod.harbinger_core": "Noyau du Messager",
   "item.corruptionmod.harbinger_core.tooltip": "L'essence corrompue d'un dieu vaincu",
   "item.corruptionmod.entropy_essence": "Essence d'Entropie",

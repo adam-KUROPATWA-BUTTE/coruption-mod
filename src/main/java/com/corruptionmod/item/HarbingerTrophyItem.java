@@ -19,7 +19,7 @@ public class HarbingerTrophyItem extends Item {
     }
     
     @Override
-    public void appendTooltip(ItemStack stack, TooltipContext context, List<Text> tooltip, TooltipType type) {
+    public void appendTooltip(ItemStack stack, Item.TooltipContext context, List<Text> tooltip, TooltipType type) {
         tooltip.add(Text.translatable("item.corruptionmod.harbinger_trophy.tooltip")
             .formatted(Formatting.GOLD, Formatting.BOLD));
         tooltip.add(Text.translatable("item.corruptionmod.harbinger_trophy.subtitle")

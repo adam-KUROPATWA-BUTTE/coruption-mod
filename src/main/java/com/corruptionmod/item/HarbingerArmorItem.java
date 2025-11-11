@@ -121,7 +121,7 @@ public class HarbingerArmorItem extends ArmorItem {
     }
     
     @Override
-    public void appendTooltip(ItemStack stack, TooltipContext context, List<Text> tooltip, TooltipType type) {
+    public void appendTooltip(ItemStack stack, Item.TooltipContext context, List<Text> tooltip, TooltipType type) {
         Type armorType = getSlotType();
         String effectKey = switch (armorType) {
             case HELMET -> "corruption_resistance";

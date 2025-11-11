@@ -1,0 +1,49 @@
+{
+  "quest_id": "quest_2_echoes_past",
+  "name": {
+    "en": "Echoes of the Past",
+    "fr": "Échos du Passé"
+  },
+  "description": {
+    "en": "The ancient temple holds records of a previous corruption outbreak. Find the tome hidden within.",
+    "fr": "L'ancien temple contient des archives d'une précédente épidémie de corruption. Trouve le tome caché à l'intérieur."
+  },
+  "objectives": [
+    {
+      "type": "explore_structure",
+      "description": {
+        "en": "Explore the Ancient Temple structure",
+        "fr": "Explorer la structure du Temple Ancien"
+      },
+      "required": 1,
+      "target": "ancient_temple"
+    },
+    {
+      "type": "collect_item",
+      "description": {
+        "en": "Find the Corruption Tome",
+        "fr": "Trouver le Tome de Corruption"
+      },
+      "required": 1,
+      "target": "corruptionmod:corruption_tome"
+    },
+    {
+      "type": "talk_to_npc",
+      "description": {
+        "en": "Return to Elder Maren",
+        "fr": "Retourner voir l'Ancien Maren"
+      },
+      "required": 1,
+      "target": "elder_maren"
+    }
+  ],
+  "rewards": [
+    {
+      "item": "minecraft:gold_ingot",
+      "count": 64
+    }
+  ],
+  "xp_reward": 100,
+  "prerequisite": "quest_1_first_infection",
+  "next_quest": "quest_3_cleansing"
+}

@@ -37,8 +37,41 @@
   "entity.corruptionmod.corrupted_creeper": "Corrupted Creeper",
   "entity.corruptionmod.tainted_cow": "Tainted Cow",
   "entity.corruptionmod.hollowed_villager": "Hollowed Villager",
+  "entity.corruptionmod.elder_maren": "Elder Maren",
+  "entity.corruptionmod.kael": "Kael the Wanderer",
+  "entity.corruptionmod.hollow_one": "The Hollow One",
   
   "effect.corruptionmod.corruption": "Corruption",
+  
+  "quest.corruptionmod.quest_1_first_infection.name": "The First Infection",
+  "quest.corruptionmod.quest_1_first_infection.description": "Elder Maren needs a sample of corrupted material from the infected zone to study. Be careful not to stay too long.",
+  "quest.corruptionmod.quest_1_first_infection.objective_1": "Find a corrupted block sample",
+  "quest.corruptionmod.quest_1_first_infection.objective_2": "Return to Elder Maren",
+  
+  "quest.corruptionmod.quest_2_echoes_past.name": "Echoes of the Past",
+  "quest.corruptionmod.quest_2_echoes_past.description": "The ancient temple holds records of a previous corruption outbreak. Find the tome hidden within.",
+  "quest.corruptionmod.quest_2_echoes_past.objective_1": "Explore the Ancient Temple structure",
+  "quest.corruptionmod.quest_2_echoes_past.objective_2": "Find the Corruption Tome",
+  "quest.corruptionmod.quest_2_echoes_past.objective_3": "Return to Elder Maren",
+  
+  "quest.corruptionmod.quest_3_cleansing.name": "The Cleansing",
+  "quest.corruptionmod.quest_3_cleansing.description": "Kael wants you to prove you can fight back against the corruption. Use purification crystals to cleanse the land.",
+  "quest.corruptionmod.quest_3_cleansing.objective_1": "Craft a Purification Crystal",
+  "quest.corruptionmod.quest_3_cleansing.objective_2": "Cleanse 10 corrupted blocks",
+  "quest.corruptionmod.quest_3_cleansing.objective_3": "Defeat 10 corrupted enemies",
+  
+  "quest.corruptionmod.quest_4_into_void.name": "Into the Void",
+  "quest.corruptionmod.quest_4_into_void.description": "The source of the corruption lies in another dimension. Build a portal and investigate the Void Realm.",
+  "quest.corruptionmod.quest_4_into_void.objective_1": "Craft a Void Portal Frame",
+  "quest.corruptionmod.quest_4_into_void.objective_2": "Activate the portal to Void Realm",
+  "quest.corruptionmod.quest_4_into_void.objective_3": "Explore the Void Realm",
+  "quest.corruptionmod.quest_4_into_void.objective_4": "Return safely",
+  
+  "quest.corruptionmod.quest_5_heart_darkness.name": "Heart of Darkness",
+  "quest.corruptionmod.quest_5_heart_darkness.description": "The Harbinger of Entropy is the source of all corruption. Face it in combat and end the threat forever.",
+  "quest.corruptionmod.quest_5_heart_darkness.objective_1": "Find the Harbinger's Arena",
+  "quest.corruptionmod.quest_5_heart_darkness.objective_2": "Defeat The Harbinger",
+  "quest.corruptionmod.quest_5_heart_darkness.objective_3": "Obtain Harbinger's Core",
   
   "biome.corruptionmod.blighted_plains": "Blighted Plains",
   "biome.corruptionmod.writhing_forest": "Writhing Forest",

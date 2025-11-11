@@ -1,0 +1,53 @@
+{
+  "quest_id": "quest_3_cleansing",
+  "name": {
+    "en": "The Cleansing",
+    "fr": "La Purification"
+  },
+  "description": {
+    "en": "Kael wants you to prove you can fight back against the corruption. Use purification crystals to cleanse the land.",
+    "fr": "Kael veut que tu prouves que tu peux combattre la corruption. Utilise des cristaux de purification pour nettoyer la terre."
+  },
+  "objectives": [
+    {
+      "type": "craft_item",
+      "description": {
+        "en": "Craft a Purification Crystal",
+        "fr": "Fabriquer un Cristal de Purification"
+      },
+      "required": 1,
+      "target": "corruptionmod:purification_crystal"
+    },
+    {
+      "type": "cleanse_blocks",
+      "description": {
+        "en": "Cleanse 10 corrupted blocks",
+        "fr": "Purifier 10 blocs corrompus"
+      },
+      "required": 10,
+      "target": "corrupted_block"
+    },
+    {
+      "type": "kill_entity",
+      "description": {
+        "en": "Defeat 10 corrupted enemies",
+        "fr": "Vaincre 10 ennemis corrompus"
+      },
+      "required": 10,
+      "target": "corrupted_mob"
+    }
+  ],
+  "rewards": [
+    {
+      "item": "corruptionmod:warding_torch",
+      "count": 8
+    },
+    {
+      "item": "corruptionmod:purification_potion",
+      "count": 3
+    }
+  ],
+  "xp_reward": 150,
+  "prerequisite": "quest_2_echoes_past",
+  "next_quest": "quest_4_into_void"
+}

@@ -1,0 +1,62 @@
+{
+  "quest_id": "quest_4_into_void",
+  "name": {
+    "en": "Into the Void",
+    "fr": "Dans le Vide"
+  },
+  "description": {
+    "en": "The source of the corruption lies in another dimension. Build a portal and investigate the Void Realm.",
+    "fr": "La source de la corruption se trouve dans une autre dimension. Construis un portail et explore le Royaume du Vide."
+  },
+  "objectives": [
+    {
+      "type": "craft_item",
+      "description": {
+        "en": "Craft a Void Portal Frame",
+        "fr": "Fabriquer un Cadre de Portail du Vide"
+      },
+      "required": 1,
+      "target": "corruptionmod:void_portal_frame"
+    },
+    {
+      "type": "activate_portal",
+      "description": {
+        "en": "Activate the portal to Void Realm",
+        "fr": "Activer le portail vers le Royaume du Vide"
+      },
+      "required": 1,
+      "target": "void_portal"
+    },
+    {
+      "type": "explore_dimension",
+      "description": {
+        "en": "Explore the Void Realm",
+        "fr": "Explorer le Royaume du Vide"
+      },
+      "required": 1,
+      "target": "corruptionmod:le_neant"
+    },
+    {
+      "type": "return_dimension",
+      "description": {
+        "en": "Return safely",
+        "fr": "Revenir en sécurité"
+      },
+      "required": 1,
+      "target": "overworld"
+    }
+  ],
+  "rewards": [
+    {
+      "item": "corruptionmod:void_stone",
+      "count": 16
+    },
+    {
+      "item": "corruptionmod:corruption_essence",
+      "count": 8
+    }
+  ],
+  "xp_reward": 200,
+  "prerequisite": "quest_3_cleansing",
+  "next_quest": "quest_5_heart_darkness"
+}

@@ -1,6 +1,7 @@
 package com.corruptionmod;
 
 import com.corruptionmod.event.WorldCorruptionTicker;
+import com.corruptionmod.sound.ModSounds;
 import com.corruptionmod.world.VoidRealmAmbientEffects;
 import net.fabricmc.api.ModInitializer;
 import net.fabricmc.fabric.api.event.lifecycle.v1.ServerTickEvents;
@@ -33,13 +34,16 @@ public class CorruptionMod implements ModInitializer {
         // Register world generation
         ModWorldGen.register();
         
+        // Register sounds
+        ModSounds.register();
+        
         // Register commands
         com.corruptionmod.command.ModCommands.register();
 
-    // Enregistrer le manager de purification
-    com.corruptionmod.event.PurificationManager.register();
-    
-        // Enregistrer les effets ambiants du Void Realm
+        // Register purification manager
+        com.corruptionmod.event.PurificationManager.register();
+        
+        // Register void realm ambient effects
         VoidRealmAmbientEffects.register();
 
         // Register tick events for corruption

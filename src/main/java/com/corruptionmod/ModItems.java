@@ -1,22 +1,37 @@
 package com.corruptionmod;
 
+import com.corruptionmod.item.*;
 import com.corruptionmod.potion.PurificationPotionItem;
+import net.minecraft.item.ArmorItem;
 import net.minecraft.item.BlockItem;
 import net.minecraft.item.Item;
-import net.minecraft.item.ItemGroup;
 import net.minecraft.item.VerticallyAttachableBlockItem;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.math.Direction;
 import net.minecraft.util.registry.Registry;
 
 /**
- * Registers all mod items including block items and potions.
+ * Registers all mod items including block items, potions, and boss items.
  */
 public class ModItems {
     // Purification potions
     public static Item PURIFICATION_POTION_WEAK;
     public static Item PURIFICATION_POTION;
     public static Item PURIFICATION_POTION_STRONG;
+    
+    // Void Realm items
+    public static Item VOID_KEY;
+    
+    // Harbinger boss items
+    public static Item HARBINGER_CORE;
+    public static Item ENTROPY_ESSENCE;
+    public static Item CORRUPTION_CRYSTAL;
+    public static Item ENTROPY_BLADE;
+    public static Item HARBINGER_HELMET;
+    public static Item HARBINGER_CHESTPLATE;
+    public static Item HARBINGER_LEGGINGS;
+    public static Item HARBINGER_BOOTS;
+    public static Item HARBINGER_TROPHY;
     
     public static void register() {
         // Register block items for all blocks
@@ -68,6 +83,69 @@ public class ModItems {
             new Identifier(CorruptionMod.MOD_ID, "purification_potion_strong"),
             new PurificationPotionItem(new Item.Settings().maxCount(16), 3)
         );
+        
+        // Register Void Key
+        VOID_KEY = Registry.register(Registry.ITEM, 
+            new Identifier(CorruptionMod.MOD_ID, "void_key"),
+            new VoidKeyItem(new Item.Settings().maxDamage(64))
+        );
+        
+        // Register Harbinger boss items
+        HARBINGER_CORE = Registry.register(
+            Registry.ITEM,
+            new Identifier(CorruptionMod.MOD_ID, "harbinger_core"),
+            new HarbingerCoreItem(new Item.Settings().maxCount(16))
+        );
+        
+        ENTROPY_ESSENCE = Registry.register(
+            Registry.ITEM,
+            new Identifier(CorruptionMod.MOD_ID, "entropy_essence"),
+            new EntropyEssenceItem(new Item.Settings().maxCount(64))
+        );
+        
+        CORRUPTION_CRYSTAL = Registry.register(
+            Registry.ITEM,
+            new Identifier(CorruptionMod.MOD_ID, "corruption_crystal"),
+            new CorruptionCrystalItem(new Item.Settings().maxCount(64))
+        );
+        
+        ENTROPY_BLADE = Registry.register(
+            Registry.ITEM,
+            new Identifier(CorruptionMod.MOD_ID, "entropy_blade"),
+            new EntropyBladeItem(new Item.Settings().maxCount(1))
+        );
+        
+        HARBINGER_HELMET = Registry.register(
+            Registry.ITEM,
+            new Identifier(CorruptionMod.MOD_ID, "harbinger_helmet"),
+            new HarbingerArmorItem(ArmorItem.Type.HELMET, new Item.Settings().maxCount(1))
+        );
+        
+        HARBINGER_CHESTPLATE = Registry.register(
+            Registry.ITEM,
+            new Identifier(CorruptionMod.MOD_ID, "harbinger_chestplate"),
+            new HarbingerArmorItem(ArmorItem.Type.CHESTPLATE, new Item.Settings().maxCount(1))
+        );
+        
+        HARBINGER_LEGGINGS = Registry.register(
+            Registry.ITEM,
+            new Identifier(CorruptionMod.MOD_ID, "harbinger_leggings"),
+            new HarbingerArmorItem(ArmorItem.Type.LEGGINGS, new Item.Settings().maxCount(1))
+        );
+        
+        HARBINGER_BOOTS = Registry.register(
+            Registry.ITEM,
+            new Identifier(CorruptionMod.MOD_ID, "harbinger_boots"),
+            new HarbingerArmorItem(ArmorItem.Type.BOOTS, new Item.Settings().maxCount(1))
+        );
+        
+        HARBINGER_TROPHY = Registry.register(
+            Registry.ITEM,
+            new Identifier(CorruptionMod.MOD_ID, "harbinger_trophy"),
+            new HarbingerTrophyItem(new Item.Settings().maxCount(1))
+        );
+        
+        CorruptionMod.LOGGER.info("Registering mod items");
     }
     
     private static void registerBlockItem(String name, net.minecraft.block.Block block) {
@@ -75,23 +153,5 @@ public class ModItems {
             new Identifier(CorruptionMod.MOD_ID, name), 
             new BlockItem(block, new Item.Settings())
         );
-import com.corruptionmod.item.VoidKeyItem;
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemGroup;
-import net.minecraft.util.Identifier;
-import net.minecraft.util.registry.Registry;
-
-/**
- * Registers all items for the mod.
- */
-public class ModItems {
-    public static Item VOID_KEY;
-
-    public static void register() {
-        VOID_KEY = Registry.register(Registry.ITEM, 
-            new Identifier(CorruptionMod.MOD_ID, "void_key"),
-            new VoidKeyItem(new Item.Settings().maxDamage(64)));
-        
-        CorruptionMod.LOGGER.info("Registering mod items");
     }
 }

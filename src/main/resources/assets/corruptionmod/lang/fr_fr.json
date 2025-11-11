@@ -1,0 +1,31 @@
+{
+  "entity.corruptionmod.harbinger": "Le Messager de l'Entropie",
+  
+  "item.corruptionmod.harbinger_core": "Noyau du Messager",
+  "item.corruptionmod.harbinger_core.tooltip": "L'essence corrompue d'un dieu vaincu",
+  "item.corruptionmod.entropy_essence": "Essence d'Entropie",
+  "item.corruptionmod.entropy_essence.tooltip": "Énergie chaotique pure du vide",
+  "item.corruptionmod.corruption_crystal": "Cristal de Corruption",
+  "item.corruptionmod.corruption_crystal.tooltip": "Énergie de corruption cristallisée",
+  
+  "item.corruptionmod.entropy_blade": "Lame d'Entropie",
+  "item.corruptionmod.entropy_blade.tooltip": "Une lame forgée dans le vide lui-même",
+  "item.corruptionmod.entropy_blade.effect": "Inflige la Corruption aux coups",
+  
+  "item.corruptionmod.harbinger_helmet": "Casque du Messager",
+  "item.corruptionmod.harbinger_chestplate": "Plastron du Messager",
+  "item.corruptionmod.harbinger_leggings": "Jambières du Messager",
+  "item.corruptionmod.harbinger_boots": "Bottes du Messager",
+  "item.corruptionmod.harbinger_armor.tooltip": "Armure forgée des restes de l'entropie",
+  "item.corruptionmod.harbinger_armor.corruption_resistance": "Fournit: Vision Nocturne",
+  "item.corruptionmod.harbinger_armor.health_boost": "Fournit: Boost de Santé",
+  "item.corruptionmod.harbinger_armor.speed_boost": "Fournit: Vitesse",
+  "item.corruptionmod.harbinger_armor.jump_boost": "Fournit: Boost de Saut",
+  
+  "item.corruptionmod.harbinger_trophy": "Trophée du Messager",
+  "item.corruptionmod.harbinger_trophy.tooltip": "Preuve de Victoire sur l'Entropie",
+  "item.corruptionmod.harbinger_trophy.subtitle": "La Fin de Toutes Choses",
+  
+  "advancement.corruptionmod.defeat_harbinger": "Fin de l'Entropie",
+  "advancement.corruptionmod.defeat_harbinger.description": "Vaincre le Messager de l'Entropie"
+}

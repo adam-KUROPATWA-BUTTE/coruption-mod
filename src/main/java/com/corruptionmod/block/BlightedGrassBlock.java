@@ -2,7 +2,8 @@ package com.corruptionmod.block;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
-import net.minecraft.block.Material;
+import net.minecraft.block.AbstractBlock;
+import net.minecraft.block.MapColor;
 import net.minecraft.particle.ParticleTypes;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.sound.BlockSoundGroup;
@@ -16,7 +17,8 @@ import net.minecraft.world.World;
  */
 public class BlightedGrassBlock extends Block {
     public BlightedGrassBlock() {
-        super(Settings.of(Material.SOLID_ORGANIC)
+        super(AbstractBlock.Settings.create()
+                .mapColor(MapColor.PALE_GREEN)
                 .strength(0.6f)
                 .sounds(BlockSoundGroup.GRASS)
                 .ticksRandomly());

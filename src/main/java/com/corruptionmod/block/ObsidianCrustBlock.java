@@ -2,7 +2,8 @@ package com.corruptionmod.block;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
-import net.minecraft.block.Material;
+import net.minecraft.block.AbstractBlock;
+import net.minecraft.block.MapColor;
 import net.minecraft.particle.ParticleTypes;
 import net.minecraft.sound.BlockSoundGroup;
 import net.minecraft.util.math.BlockPos;
@@ -15,7 +16,8 @@ import net.minecraft.world.World;
  */
 public class ObsidianCrustBlock extends Block {
     public ObsidianCrustBlock() {
-        super(Settings.of(Material.STONE)
+        super(AbstractBlock.Settings.create()
+                .mapColor(MapColor.BLACK)
                 .strength(50.0f, 1200.0f)
                 .requiresTool()
                 .sounds(BlockSoundGroup.STONE)

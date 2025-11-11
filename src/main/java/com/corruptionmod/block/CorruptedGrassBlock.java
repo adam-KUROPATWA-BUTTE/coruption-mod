@@ -1,7 +1,8 @@
 package com.corruptionmod.block;
 
 import net.minecraft.block.BlockState;
-import net.minecraft.block.Material;
+import net.minecraft.block.AbstractBlock;
+import net.minecraft.block.MapColor;
 import net.minecraft.particle.ParticleTypes;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.util.math.BlockPos;
@@ -14,7 +15,7 @@ import net.minecraft.world.World;
  */
 public class CorruptedGrassBlock extends CorruptionBlock {
     public CorruptedGrassBlock() {
-        super(Settings.of(Material.SOIL).strength(0.6f).ticksRandomly());
+        super(AbstractBlock.Settings.create().mapColor(MapColor.DIRT_BROWN).strength(0.6f).ticksRandomly());
     }
 
     @Override

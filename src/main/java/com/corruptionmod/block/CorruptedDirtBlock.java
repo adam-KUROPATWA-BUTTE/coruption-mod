@@ -1,13 +1,14 @@
 package com.corruptionmod.block;
 
 import net.minecraft.block.Block;
-import net.minecraft.block.Material;
+import net.minecraft.block.AbstractBlock;
+import net.minecraft.block.MapColor;
 
 /**
  * Dirt corrompu (variant pour conversion).
  */
 public class CorruptedDirtBlock extends CorruptionBlock {
     public CorruptedDirtBlock() {
-        super(Settings.of(Material.SOIL).strength(0.5f));
+        super(AbstractBlock.Settings.create().mapColor(MapColor.DIRT_BROWN).strength(0.5f));
     }
 }

@@ -1,7 +1,8 @@
 package com.corruptionmod.block;
 
 import net.minecraft.block.BlockState;
-import net.minecraft.block.Material;
+import net.minecraft.block.AbstractBlock;
+import net.minecraft.block.MapColor;
 import net.minecraft.particle.ParticleTypes;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.random.Random;
@@ -13,7 +14,8 @@ import net.minecraft.world.World;
  */
 public class WitheredLeavesBlock extends CorruptionBlock {
     public WitheredLeavesBlock() {
-        super(Settings.of(Material.LEAVES)
+        super(AbstractBlock.Settings.create()
+                .mapColor(MapColor.DARK_GREEN)
                 .strength(0.2f)
                 .nonOpaque()
                 .allowsSpawning((state, world, pos, type) -> false)

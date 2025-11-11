@@ -3,7 +3,8 @@ package com.corruptionmod.block;
 import com.corruptionmod.event.PurificationManager;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
-import net.minecraft.block.Material;
+import net.minecraft.block.AbstractBlock;
+import net.minecraft.block.MapColor;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.BlockView;
@@ -14,7 +15,7 @@ import net.minecraft.world.World;
  */
 public class PurificationCrystalBlock extends Block {
     public PurificationCrystalBlock() {
-        super(Settings.of(Material.METAL).strength(1.5f));
+        super(AbstractBlock.Settings.create().mapColor(MapColor.STONE_GRAY).strength(1.5f).requiresTool());
     }
 
     @Override

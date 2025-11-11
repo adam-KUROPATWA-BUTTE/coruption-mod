@@ -1,7 +1,8 @@
 package com.corruptionmod.block;
 
 import net.minecraft.block.BlockState;
-import net.minecraft.block.Material;
+import net.minecraft.block.AbstractBlock;
+import net.minecraft.block.MapColor;
 import net.minecraft.particle.ParticleTypes;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.random.Random;
@@ -13,7 +14,7 @@ import net.minecraft.world.World;
  */
 public class CorruptedStoneBlock extends CorruptionBlock {
     public CorruptedStoneBlock() {
-        super(Settings.of(Material.STONE).strength(3.0f, 6.0f));
+        super(AbstractBlock.Settings.create().mapColor(MapColor.STONE_GRAY).strength(3.0f, 6.0f).requiresTool());
     }
 
     @Override

@@ -1,0 +1,133 @@
+{
+  "npc_id": "hollow_one",
+  "nodes": {
+    "start": {
+      "text": {
+        "en": "You... should not be here. Yet you resist the corruption. Curious.",
+        "fr": "Tu... ne devrais pas être ici. Pourtant tu résistes à la corruption. Curieux."
+      },
+      "options": [
+        {
+          "text": {
+            "en": "Who... what are you?",
+            "fr": "Qui... qu'es-tu ?"
+          },
+          "next_node": "identity"
+        },
+        {
+          "text": {
+            "en": "Why are you here?",
+            "fr": "Pourquoi es-tu ici ?"
+          },
+          "next_node": "purpose"
+        },
+        {
+          "text": {
+            "en": "I must leave.",
+            "fr": "Je dois partir."
+          },
+          "next_node": null
+        }
+      ]
+    },
+    "identity": {
+      "text": {
+        "en": "I am what remains when the corruption takes everything. A shadow. An echo. Perhaps... a warning.",
+        "fr": "Je suis ce qui reste quand la corruption prend tout. Une ombre. Un écho. Peut-être... un avertissement."
+      },
+      "options": [
+        {
+          "text": {
+            "en": "I understand.",
+            "fr": "Je comprends."
+          },
+          "next_node": "start"
+        }
+      ]
+    },
+    "purpose": {
+      "text": {
+        "en": "I watch. I wait. I failed to stop the Harbinger once. Perhaps you will succeed where I could not.",
+        "fr": "Je regarde. J'attends. J'ai échoué à arrêter le Harbinger une fois. Peut-être réussiras-tu là où j'ai échoué."
+      },
+      "options": [
+        {
+          "text": {
+            "en": "Tell me more.",
+            "fr": "Dis-m'en plus."
+          },
+          "next_node": "quest_5_available"
+        }
+      ]
+    },
+    "quest_5_available": {
+      "text": {
+        "en": "The Harbinger awakens. Face it, or become one with the void.",
+        "fr": "Le Harbinger s'éveille. Affronte-le, ou deviens un avec le vide."
+      },
+      "quest_id": "quest_5_heart_darkness",
+      "options": [
+        {
+          "text": {
+            "en": "I will face the Harbinger.",
+            "fr": "Je vais affronter le Harbinger."
+          },
+          "action": "start_quest_5",
+          "next_node": null
+        },
+        {
+          "text": {
+            "en": "I'm not ready.",
+            "fr": "Je ne suis pas prêt."
+          },
+          "next_node": null
+        }
+      ]
+    },
+    "quest_5_complete": {
+      "text": {
+        "en": "You have done what I could not. The corruption weakens, but it never truly dies.",
+        "fr": "Tu as fait ce que je ne pouvais pas. La corruption faiblit, mais elle ne meurt jamais vraiment."
+      },
+      "options": [
+        {
+          "text": {
+            "en": "What happens now?",
+            "fr": "Que se passe-t-il maintenant ?"
+          },
+          "next_node": "ending"
+        }
+      ]
+    },
+    "ending": {
+      "text": {
+        "en": "Now... I can finally rest. Thank you, traveler. May you never know the void as I have.",
+        "fr": "Maintenant... je peux enfin me reposer. Merci, voyageur. Puisses-tu ne jamais connaître le vide comme moi."
+      },
+      "options": [
+        {
+          "text": {
+            "en": "Rest well.",
+            "fr": "Repose-toi bien."
+          },
+          "next_node": null
+        }
+      ]
+    },
+    "completed": {
+      "text": {
+        "en": "The void is silent now. You have brought peace to this cursed realm.",
+        "fr": "Le vide est silencieux maintenant. Tu as apporté la paix à ce royaume maudit."
+      },
+      "options": [
+        {
+          "text": {
+            "en": "Farewell.",
+            "fr": "Adieu."
+          },
+          "next_node": null
+        }
+      ]
+    }
+  }
+}

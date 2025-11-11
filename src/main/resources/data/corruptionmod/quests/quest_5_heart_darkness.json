@@ -1,0 +1,53 @@
+{
+  "quest_id": "quest_5_heart_darkness",
+  "name": {
+    "en": "Heart of Darkness",
+    "fr": "Cœur des Ténèbres"
+  },
+  "description": {
+    "en": "The Harbinger of Entropy is the source of all corruption. Face it in combat and end the threat forever.",
+    "fr": "Le Harbinger de l'Entropie est la source de toute corruption. Affronte-le au combat et mets fin à la menace pour toujours."
+  },
+  "objectives": [
+    {
+      "type": "find_location",
+      "description": {
+        "en": "Find the Harbinger's Arena",
+        "fr": "Trouver l'Arène du Harbinger"
+      },
+      "required": 1,
+      "target": "harbinger_arena"
+    },
+    {
+      "type": "kill_entity",
+      "description": {
+        "en": "Defeat The Harbinger",
+        "fr": "Vaincre le Harbinger"
+      },
+      "required": 1,
+      "target": "corruptionmod:harbinger"
+    },
+    {
+      "type": "collect_item",
+      "description": {
+        "en": "Obtain Harbinger's Core",
+        "fr": "Obtenir le Cœur du Harbinger"
+      },
+      "required": 1,
+      "target": "corruptionmod:harbinger_core"
+    }
+  ],
+  "rewards": [
+    {
+      "item": "corruptionmod:entropy_blade_recipe",
+      "count": 1
+    },
+    {
+      "item": "corruptionmod:harbinger_armor_recipes",
+      "count": 1
+    }
+  ],
+  "xp_reward": 500,
+  "prerequisite": "quest_4_into_void",
+  "next_quest": null
+}

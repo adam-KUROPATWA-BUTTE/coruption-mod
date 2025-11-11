@@ -39,6 +39,10 @@ public class CorruptionMod implements ModInitializer {
     // Enregistrer le manager de purification
     com.corruptionmod.event.PurificationManager.register();
     
+    // Register dialogue and quest systems
+    com.corruptionmod.dialogue.DialogueManager.register();
+    com.corruptionmod.quest.QuestManager.register();
+    
         // Enregistrer les effets ambiants du Void Realm
         VoidRealmAmbientEffects.register();
 

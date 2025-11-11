@@ -1,0 +1,151 @@
+{
+  "npc_id": "elder_maren",
+  "nodes": {
+    "start": {
+      "text": {
+        "en": "Traveler... you feel it too, don't you? The corruption spreads. I've studied it for years, but we're running out of time.",
+        "fr": "Voyageur... tu le sens aussi, n'est-ce pas ? La corruption se propage. Je l'étudie depuis des années, mais le temps nous manque."
+      },
+      "options": [
+        {
+          "text": {
+            "en": "What can I do to help?",
+            "fr": "Que puis-je faire pour aider ?"
+          },
+          "next_node": "quest_1_offer"
+        },
+        {
+          "text": {
+            "en": "Tell me about the corruption.",
+            "fr": "Parlez-moi de la corruption."
+          },
+          "next_node": "lore"
+        },
+        {
+          "text": {
+            "en": "I must go.",
+            "fr": "Je dois partir."
+          },
+          "next_node": null
+        }
+      ]
+    },
+    "quest_1_offer": {
+      "text": {
+        "en": "If you're brave enough, I need your help. The corruption started at the old temple. Bring me a sample.",
+        "fr": "Si tu es assez courageux, j'ai besoin de ton aide. La corruption a commencé au vieux temple. Rapporte-moi un échantillon."
+      },
+      "quest_id": "quest_1_first_infection",
+      "options": [
+        {
+          "text": {
+            "en": "I'll get you that sample.",
+            "fr": "Je vais vous chercher cet échantillon."
+          },
+          "action": "start_quest_1",
+          "next_node": null
+        },
+        {
+          "text": {
+            "en": "Not right now.",
+            "fr": "Pas maintenant."
+          },
+          "next_node": null
+        }
+      ]
+    },
+    "quest_1_complete": {
+      "text": {
+        "en": "You've done well. This corruption... it's worse than I feared. But there may be a way to stop it.",
+        "fr": "Tu as bien fait. Cette corruption... c'est pire que je le craignais. Mais il existe peut-être un moyen de l'arrêter."
+      },
+      "options": [
+        {
+          "text": {
+            "en": "What do we do next?",
+            "fr": "Que faisons-nous ensuite ?"
+          },
+          "next_node": "quest_2_available"
+        }
+      ]
+    },
+    "quest_2_available": {
+      "text": {
+        "en": "The ancient temple holds records of a previous corruption outbreak. Find the tome hidden within.",
+        "fr": "L'ancien temple contient des archives d'une précédente épidémie de corruption. Trouve le tome caché à l'intérieur."
+      },
+      "quest_id": "quest_2_echoes_past",
+      "options": [
+        {
+          "text": {
+            "en": "I'll find the tome.",
+            "fr": "Je vais trouver le tome."
+          },
+          "action": "start_quest_2",
+          "next_node": null
+        },
+        {
+          "text": {
+            "en": "I need more time.",
+            "fr": "J'ai besoin de plus de temps."
+          },
+          "next_node": null
+        }
+      ]
+    },
+    "quest_4_available": {
+      "text": {
+        "en": "The source of the corruption lies in another dimension. Build a portal and investigate the Void Realm.",
+        "fr": "La source de la corruption se trouve dans une autre dimension. Construis un portail et explore le Royaume du Vide."
+      },
+      "quest_id": "quest_4_into_void",
+      "options": [
+        {
+          "text": {
+            "en": "I'm ready to explore the Void.",
+            "fr": "Je suis prêt à explorer le Vide."
+          },
+          "action": "start_quest_4",
+          "next_node": null
+        },
+        {
+          "text": {
+            "en": "Not yet.",
+            "fr": "Pas encore."
+          },
+          "next_node": null
+        }
+      ]
+    },
+    "lore": {
+      "text": {
+        "en": "The corruption is not of this world. It seeps from cracks in reality, consuming everything it touches. Only through understanding can we hope to stop it.",
+        "fr": "La corruption n'est pas de ce monde. Elle s'infiltre par les fissures de la réalité, consumant tout ce qu'elle touche. Ce n'est qu'en la comprenant que nous pourrons espérer l'arrêter."
+      },
+      "options": [
+        {
+          "text": {
+            "en": "I understand.",
+            "fr": "Je comprends."
+          },
+          "next_node": "start"
+        }
+      ]
+    },
+    "completed": {
+      "text": {
+        "en": "You have done much for us. May your path be free of corruption.",
+        "fr": "Tu as beaucoup fait pour nous. Que ton chemin soit libre de corruption."
+      },
+      "options": [
+        {
+          "text": {
+            "en": "Farewell.",
+            "fr": "Adieu."
+          },
+          "next_node": null
+        }
+      ]
+    }
+  }
+}

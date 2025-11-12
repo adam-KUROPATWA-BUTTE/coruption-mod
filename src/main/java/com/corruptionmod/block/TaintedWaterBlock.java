@@ -1,7 +1,8 @@
 package com.corruptionmod.block;
 
 import net.minecraft.block.BlockState;
-import net.minecraft.block.Material;
+import net.minecraft.block.AbstractBlock;
+import net.minecraft.block.MapColor;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.damage.DamageSource;
@@ -14,7 +15,7 @@ import net.minecraft.world.World;
  */
 public class TaintedWaterBlock extends CorruptionBlock {
     public TaintedWaterBlock() {
-        super(Settings.of(Material.WATER).noCollision().strength(100f));
+        super(AbstractBlock.Settings.create().mapColor(MapColor.WATER_BLUE).noCollision().strength(100f));
     }
 
     @Override

@@ -63,7 +63,7 @@ public class EntropyBladeItem extends SwordItem {
     }
     
     @Override
-    public void appendTooltip(ItemStack stack, TooltipContext context, List<Text> tooltip, TooltipType type) {
+    public void appendTooltip(ItemStack stack, Item.TooltipContext context, List<Text> tooltip, TooltipType type) {
         tooltip.add(Text.translatable("item.corruptionmod.entropy_blade.tooltip")
             .formatted(Formatting.DARK_PURPLE));
         tooltip.add(Text.translatable("item.corruptionmod.entropy_blade.effect")

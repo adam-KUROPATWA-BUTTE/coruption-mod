@@ -96,7 +96,7 @@ public class VoidPortalHelper {
         
         // Create teleport target
         TeleportTarget target = new TeleportTarget(
-            targetPos,
+            new net.minecraft.util.math.Vec3d(targetPos.getX(), targetPos.getY(), targetPos.getZ()),
             entity.getVelocity(),
             entity.getYaw(),
             entity.getPitch()

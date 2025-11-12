@@ -2,7 +2,8 @@ package com.corruptionmod.block;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
-import net.minecraft.block.Material;
+import net.minecraft.block.AbstractBlock;
+import net.minecraft.block.MapColor;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.particle.ParticleTypes;
@@ -17,7 +18,8 @@ import net.minecraft.world.World;
  */
 public class CorruptionFleshBlock extends Block {
     public CorruptionFleshBlock() {
-        super(Settings.of(Material.ORGANIC_PRODUCT)
+        super(AbstractBlock.Settings.create()
+                .mapColor(MapColor.PINK)
                 .strength(1.0f, 3.0f)
                 .sounds(BlockSoundGroup.HONEY)
                 .slipperiness(0.6f));

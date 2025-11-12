@@ -4,7 +4,6 @@ import com.corruptionmod.ModBlocks;
 import com.corruptionmod.util.CorruptionUtil;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
-import net.minecraft.block.Material;
 import net.minecraft.particle.ParticleTypes;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.util.math.BlockPos;
@@ -47,7 +46,8 @@ public class CorruptionBlock extends Block {
 
             float chance = corruptionChanceFor(tstate);
             // Si eau, ralentir la propagation de 80%
-            if (tstate.getMaterial() == Material.WATER) chance *= 0.2f;
+            String key = tstate.getBlock().getTranslationKey().toLowerCase();
+            if (key.contains("water")) chance *= 0.2f;
 
             // Préférer la cible avec la plus haute probabilité (simple heuristique de priorité)
             if (chance > chosenChance) {

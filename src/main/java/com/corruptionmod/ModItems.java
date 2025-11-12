@@ -9,7 +9,8 @@ import net.minecraft.item.SpawnEggItem;
 import net.minecraft.item.VerticallyAttachableBlockItem;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.math.Direction;
-import net.minecraft.util.registry.Registry;
+import net.minecraft.registry.Registries;
+import net.minecraft.registry.Registry;
 
 /**
  * Registers all mod items including block items, potions, and boss items.
@@ -57,8 +58,8 @@ public class ModItems {
         registerBlockItem("sacred_barrier_smooth", ModBlocks.SACRED_BARRIER_SMOOTH);
         
         // Warding torches - special handling for torch items
-        Registry.register(Registry.ITEM, 
-            new Identifier(CorruptionMod.MOD_ID, "warding_torch"),
+        Registry.register(Registries.ITEM, 
+            Identifier.of(CorruptionMod.MOD_ID, "warding_torch"),
             new VerticallyAttachableBlockItem(
                 ModBlocks.WARDING_TORCH, 
                 ModBlocks.WARDING_WALL_TORCH, 
@@ -69,88 +70,88 @@ public class ModItems {
         
         // Register purification potions
         PURIFICATION_POTION_WEAK = Registry.register(
-            Registry.ITEM,
-            new Identifier(CorruptionMod.MOD_ID, "purification_potion_weak"),
+            Registries.ITEM,
+            Identifier.of(CorruptionMod.MOD_ID, "purification_potion_weak"),
             new PurificationPotionItem(new Item.Settings().maxCount(16), 1)
         );
         
         PURIFICATION_POTION = Registry.register(
-            Registry.ITEM,
-            new Identifier(CorruptionMod.MOD_ID, "purification_potion"),
+            Registries.ITEM,
+            Identifier.of(CorruptionMod.MOD_ID, "purification_potion"),
             new PurificationPotionItem(new Item.Settings().maxCount(16), 2)
         );
         
         PURIFICATION_POTION_STRONG = Registry.register(
-            Registry.ITEM,
-            new Identifier(CorruptionMod.MOD_ID, "purification_potion_strong"),
+            Registries.ITEM,
+            Identifier.of(CorruptionMod.MOD_ID, "purification_potion_strong"),
             new PurificationPotionItem(new Item.Settings().maxCount(16), 3)
         );
         
         // Register Void Key
-        VOID_KEY = Registry.register(Registry.ITEM, 
-            new Identifier(CorruptionMod.MOD_ID, "void_key"),
+        VOID_KEY = Registry.register(Registries.ITEM, 
+            Identifier.of(CorruptionMod.MOD_ID, "void_key"),
             new VoidKeyItem(new Item.Settings().maxDamage(64))
         );
         
         // Register Harbinger boss items
         HARBINGER_CORE = Registry.register(
-            Registry.ITEM,
-            new Identifier(CorruptionMod.MOD_ID, "harbinger_core"),
+            Registries.ITEM,
+            Identifier.of(CorruptionMod.MOD_ID, "harbinger_core"),
             new HarbingerCoreItem(new Item.Settings().maxCount(16))
         );
         
         ENTROPY_ESSENCE = Registry.register(
-            Registry.ITEM,
-            new Identifier(CorruptionMod.MOD_ID, "entropy_essence"),
+            Registries.ITEM,
+            Identifier.of(CorruptionMod.MOD_ID, "entropy_essence"),
             new EntropyEssenceItem(new Item.Settings().maxCount(64))
         );
         
         CORRUPTION_CRYSTAL = Registry.register(
-            Registry.ITEM,
-            new Identifier(CorruptionMod.MOD_ID, "corruption_crystal"),
+            Registries.ITEM,
+            Identifier.of(CorruptionMod.MOD_ID, "corruption_crystal"),
             new CorruptionCrystalItem(new Item.Settings().maxCount(64))
         );
         
         ENTROPY_BLADE = Registry.register(
-            Registry.ITEM,
-            new Identifier(CorruptionMod.MOD_ID, "entropy_blade"),
+            Registries.ITEM,
+            Identifier.of(CorruptionMod.MOD_ID, "entropy_blade"),
             new EntropyBladeItem(new Item.Settings().maxCount(1))
         );
         
         HARBINGER_HELMET = Registry.register(
-            Registry.ITEM,
-            new Identifier(CorruptionMod.MOD_ID, "harbinger_helmet"),
+            Registries.ITEM,
+            Identifier.of(CorruptionMod.MOD_ID, "harbinger_helmet"),
             new HarbingerArmorItem(ArmorItem.Type.HELMET, new Item.Settings().maxCount(1))
         );
         
         HARBINGER_CHESTPLATE = Registry.register(
-            Registry.ITEM,
-            new Identifier(CorruptionMod.MOD_ID, "harbinger_chestplate"),
+            Registries.ITEM,
+            Identifier.of(CorruptionMod.MOD_ID, "harbinger_chestplate"),
             new HarbingerArmorItem(ArmorItem.Type.CHESTPLATE, new Item.Settings().maxCount(1))
         );
         
         HARBINGER_LEGGINGS = Registry.register(
-            Registry.ITEM,
-            new Identifier(CorruptionMod.MOD_ID, "harbinger_leggings"),
+            Registries.ITEM,
+            Identifier.of(CorruptionMod.MOD_ID, "harbinger_leggings"),
             new HarbingerArmorItem(ArmorItem.Type.LEGGINGS, new Item.Settings().maxCount(1))
         );
         
         HARBINGER_BOOTS = Registry.register(
-            Registry.ITEM,
-            new Identifier(CorruptionMod.MOD_ID, "harbinger_boots"),
+            Registries.ITEM,
+            Identifier.of(CorruptionMod.MOD_ID, "harbinger_boots"),
             new HarbingerArmorItem(ArmorItem.Type.BOOTS, new Item.Settings().maxCount(1))
         );
         
         HARBINGER_TROPHY = Registry.register(
-            Registry.ITEM,
-            new Identifier(CorruptionMod.MOD_ID, "harbinger_trophy"),
+            Registries.ITEM,
+            Identifier.of(CorruptionMod.MOD_ID, "harbinger_trophy"),
             new HarbingerTrophyItem(new Item.Settings().maxCount(1))
         );
         
         // Register spawn egg
         HARBINGER_SPAWN_EGG = Registry.register(
-            Registry.ITEM,
-            new Identifier(CorruptionMod.MOD_ID, "harbinger_spawn_egg"),
+            Registries.ITEM,
+            Identifier.of(CorruptionMod.MOD_ID, "harbinger_spawn_egg"),
             new SpawnEggItem(ModEntities.HARBINGER, 0x5A0A5A, 0x8B008B, new Item.Settings())
         );
         
@@ -158,8 +159,8 @@ public class ModItems {
     }
     
     private static void registerBlockItem(String name, net.minecraft.block.Block block) {
-        Registry.register(Registry.ITEM, 
-            new Identifier(CorruptionMod.MOD_ID, name), 
+        Registry.register(Registries.ITEM, 
+            Identifier.of(CorruptionMod.MOD_ID, name), 
             new BlockItem(block, new Item.Settings())
         );
     }

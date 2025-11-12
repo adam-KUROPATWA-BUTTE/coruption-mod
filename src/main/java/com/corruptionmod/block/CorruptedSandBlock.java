@@ -1,13 +1,14 @@
 package com.corruptionmod.block;
 
 import net.minecraft.block.Block;
-import net.minecraft.block.Material;
+import net.minecraft.block.AbstractBlock;
+import net.minecraft.block.MapColor;
 
 /**
  * Sable corrompu.
  */
 public class CorruptedSandBlock extends CorruptionBlock {
     public CorruptedSandBlock() {
-        super(Settings.of(Material.AGGREGATE).strength(0.5f));
+        super(AbstractBlock.Settings.create().mapColor(MapColor.PALE_YELLOW).strength(0.5f));
     }
 }

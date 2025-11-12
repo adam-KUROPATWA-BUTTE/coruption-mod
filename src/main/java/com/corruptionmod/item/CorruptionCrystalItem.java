@@ -18,7 +18,7 @@ public class CorruptionCrystalItem extends Item {
     }
     
     @Override
-    public void appendTooltip(ItemStack stack, TooltipContext context, List<Text> tooltip, TooltipType type) {
+    public void appendTooltip(ItemStack stack, Item.TooltipContext context, List<Text> tooltip, TooltipType type) {
         tooltip.add(Text.translatable("item.corruptionmod.corruption_crystal.tooltip")
             .formatted(Formatting.DARK_RED));
     }

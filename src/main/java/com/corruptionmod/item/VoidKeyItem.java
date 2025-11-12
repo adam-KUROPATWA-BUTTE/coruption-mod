@@ -52,7 +52,7 @@ public class VoidKeyItem extends Item {
             
             // Create teleport target
             TeleportTarget target = new TeleportTarget(
-                targetPos,
+                new net.minecraft.util.math.Vec3d(targetPos.getX(), targetPos.getY(), targetPos.getZ()),
                 player.getVelocity(),
                 player.getYaw(),
                 player.getPitch()

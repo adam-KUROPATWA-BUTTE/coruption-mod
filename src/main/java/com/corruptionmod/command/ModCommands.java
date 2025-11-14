@@ -1,6 +1,7 @@
 package com.corruptionmod.command;
 
 import com.corruptionmod.event.WorldCorruptionTicker;
+import com.corruptionmod.quest.QuestManager;
 import com.corruptionmod.util.PerformanceMonitor;
 import com.mojang.brigadier.arguments.StringArgumentType;
 import com.mojang.brigadier.builder.LiteralArgumentBuilder;
@@ -88,7 +89,7 @@ public class ModCommands {
                                     String questId = StringArgumentType.getString(ctx, "questId");
                                     QuestManager.startQuest(player, questId);
                                     ctx.getSource().sendFeedback(
-                                        Text.literal("Started quest " + questId + " for " + player.getName().getString()),
+                                        () -> Text.literal("Started quest " + questId + " for " + player.getName().getString()),
                                         true
                                     );
                                     return 1;
@@ -104,7 +105,7 @@ public class ModCommands {
                                     String questId = StringArgumentType.getString(ctx, "questId");
                                     QuestManager.completeQuest(player, questId);
                                     ctx.getSource().sendFeedback(
-                                        Text.literal("Completed quest " + questId + " for " + player.getName().getString()),
+                                        () -> Text.literal("Completed quest " + questId + " for " + player.getName().getString()),
                                         true
                                     );
                                     return 1;

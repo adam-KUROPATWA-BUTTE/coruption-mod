@@ -3,6 +3,7 @@ package com.corruptionmod.world;
 import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import net.minecraft.registry.Registry;
+import net.minecraft.registry.RegistryCodecBuilder;
 import net.minecraft.registry.entry.RegistryEntry;
 import net.minecraft.registry.RegistryKeys;
 import net.minecraft.world.biome.Biome;
@@ -19,7 +20,7 @@ import java.util.stream.Stream;
 public class VoidRealmBiomeSource extends BiomeSource {
     public static final MapCodec<VoidRealmBiomeSource> CODEC = RecordCodecBuilder.mapCodec(instance ->
             instance.group(
-                    RegistryKeys.BIOME.codec().fieldOf("biome_registry").forGetter(source -> source.biomeRegistry)
+                    RegistryCodecBuilder.of(RegistryKeys.BIOME).fieldOf("biome_registry").forGetter(source -> source.biomeRegistry)
             ).apply(instance, VoidRealmBiomeSource::new)
     );
 
@@ -39,6 +40,11 @@ public class VoidRealmBiomeSource extends BiomeSource {
     @Override
     protected MapCodec<? extends BiomeSource> getCodec() {
         return CODEC;
+    }
+
+    @Override
+    public Stream<RegistryEntry<Biome>> biomeStream() {
+        return biomes.stream();
     }
 
     @Override

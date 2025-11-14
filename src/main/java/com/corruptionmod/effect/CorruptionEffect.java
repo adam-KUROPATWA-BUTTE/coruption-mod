@@ -17,9 +17,9 @@ public class CorruptionEffect extends StatusEffect {
     }
 
     @Override
-    public void applyUpdateEffect(LivingEntity entity, int amplifier) {
+    public boolean applyUpdateEffect(LivingEntity entity, int amplifier) {
         if (entity.getWorld().isClient()) {
-            return;
+            return false;
         }
 
         // Apply progressive debuffs based on corruption level (amplifier 0-3 = levels I-IV)
@@ -60,6 +60,7 @@ public class CorruptionEffect extends StatusEffect {
                 );
             }
         }
+        return true;
     }
 
     @Override

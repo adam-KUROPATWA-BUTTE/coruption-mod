@@ -1,7 +1,7 @@
 package com.corruptionmod.world;
 
 import com.corruptionmod.ModBlocks;
-import com.mojang.serialization.Codec;
+import com.mojang.serialization.MapCodec;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
 import net.minecraft.util.math.BlockPos;
@@ -26,15 +26,15 @@ import java.util.concurrent.Executor;
  * Generates terrain appropriate for each biome.
  */
 public class VoidRealmChunkGenerator extends ChunkGenerator {
-    public static final Codec<VoidRealmChunkGenerator> CODEC = BiomeSource.CODEC.fieldOf("biome_source")
-            .xmap(VoidRealmChunkGenerator::new, ChunkGenerator::getBiomeSource).codec();
+    public static final MapCodec<VoidRealmChunkGenerator> CODEC = BiomeSource.CODEC.fieldOf("biome_source")
+            .xmap(VoidRealmChunkGenerator::new, ChunkGenerator::getBiomeSource);
 
     public VoidRealmChunkGenerator(BiomeSource biomeSource) {
         super(biomeSource);
     }
 
     @Override
-    protected Codec<? extends ChunkGenerator> getCodec() {
+    protected MapCodec<? extends ChunkGenerator> getCodec() {
         return CODEC;
     }
 

@@ -2,7 +2,7 @@ package com.corruptionmod.item;
 
 import com.corruptionmod.ModDimensions;
 import com.corruptionmod.block.VoidPortalBlock;
-import net.fabricmc.fabric.api.dimension.v1.FabricDimensions;
+import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
@@ -16,8 +16,9 @@ import net.minecraft.util.Hand;
 import net.minecraft.util.TypedActionResult;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Vec3d;
-import net.minecraft.world.TeleportTarget;
 import net.minecraft.world.World;
+
+import java.util.Collections;
 
 /**
  * Item used to activate void portals and teleport to/from the Void Realm.
@@ -50,16 +51,9 @@ public class VoidKeyItem extends Item {
                 return TypedActionResult.fail(stack);
             }
             
-            // Create teleport target
-            TeleportTarget target = new TeleportTarget(
-                new net.minecraft.util.math.Vec3d(targetPos.getX(), targetPos.getY(), targetPos.getZ()),
-                player.getVelocity(),
-                player.getYaw(),
-                player.getPitch()
-            );
-            
-            // Perform teleportation
-            FabricDimensions.teleport(player, targetWorld, target);
+            // Use vanilla teleport API (1.21.1)
+            player.teleport(targetWorld, targetPos.getX(), targetPos.getY(), targetPos.getZ(), 
+                Collections.emptySet(), player.getYaw(), player.getPitch());
             
             // Play sound effects
             world.playSound(null, player.getBlockPos(), SoundEvents.BLOCK_PORTAL_TRAVEL, 
@@ -67,7 +61,7 @@ public class VoidKeyItem extends Item {
             
             // Damage the item
             if (!player.isCreative()) {
-                stack.damage(1, player, p -> p.sendToolBreakStatus(hand));
+                stack.damage(1, player, LivingEntity.getSlotForHand(hand));
             }
             
             return TypedActionResult.success(stack);

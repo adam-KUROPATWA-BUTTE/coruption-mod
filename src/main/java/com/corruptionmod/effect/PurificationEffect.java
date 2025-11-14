@@ -15,12 +15,13 @@ public class PurificationEffect extends StatusEffect {
     }
     
     @Override
-    public void applyUpdateEffect(LivingEntity entity, int amplifier) {
+    public boolean applyUpdateEffect(LivingEntity entity, int amplifier) {
         // Effect is applied every tick while active
         // This provides passive purification benefits
         
         // TODO: Remove corruption-based debuffs if they exist
         // This is a placeholder for when corruption effects on players are implemented
+        return true;
     }
     
     @Override

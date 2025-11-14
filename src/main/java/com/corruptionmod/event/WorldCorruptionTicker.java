@@ -213,7 +213,7 @@ public class WorldCorruptionTicker {
                 chance *= CorruptionConfig.corruptionSpreadMultiplier;
                 
                 // Slow down water corruption by 80%
-                if (targetState.getMaterial() == net.minecraft.block.Material.WATER) chance *= 0.2f;
+                if (targetState.getBlock() == net.minecraft.block.Blocks.WATER) chance *= 0.2f;
                 
                 // Apply warding torch protection (reduces chance)
                 float wardingProtection = PurificationManager.getWardingProtection(world, npos);

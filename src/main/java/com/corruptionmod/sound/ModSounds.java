@@ -43,7 +43,7 @@ public class ModSounds {
      * Register a sound event with the given path
      */
     private static SoundEvent registerSound(String path) {
-        Identifier id = new Identifier(CorruptionMod.MOD_ID, path);
+        Identifier id = Identifier.of(CorruptionMod.MOD_ID, path);
         return Registry.register(Registries.SOUND_EVENT, id, SoundEvent.of(id));
     }
     

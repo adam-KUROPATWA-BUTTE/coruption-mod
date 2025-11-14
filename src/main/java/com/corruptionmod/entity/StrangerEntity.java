@@ -5,6 +5,9 @@ import net.minecraft.entity.EntityType;
 import net.minecraft.entity.ai.goal.*;
 import net.minecraft.entity.attribute.DefaultAttributeContainer;
 import net.minecraft.entity.attribute.EntityAttributes;
+import net.minecraft.entity.data.DataTracker;
+import net.minecraft.entity.data.TrackedData;
+import net.minecraft.entity.data.TrackedDataHandlerRegistry;
 import net.minecraft.entity.mob.PathAwareEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.util.ActionResult;
@@ -20,11 +23,17 @@ public class StrangerEntity extends PathAwareEntity {
     private long lastMessageTick = 0;
     private long vanishAtTick = -1;
     private static final long MESSAGE_COOLDOWN = 20L * 10L; // 10 seconds
+    
+    private static final TrackedData<Boolean> NO_AI = DataTracker.registerData(StrangerEntity.class, TrackedDataHandlerRegistry.BOOLEAN);
 
     public StrangerEntity(EntityType<? extends PathAwareEntity> entityType, World world) {
         super(entityType, world);
-        // Reste essentiellement statique
-        this.setNoAi(true);
+    }
+    
+    @Override
+    protected void initDataTracker(DataTracker.Builder builder) {
+        super.initDataTracker(builder);
+        builder.add(NO_AI, true);
     }
 
     public static DefaultAttributeContainer.Builder createStrangerAttributes() {
@@ -45,9 +54,9 @@ public class StrangerEntity extends PathAwareEntity {
     public void tick() {
         super.tick();
 
-        if (this.world.isClient) return;
+        if (this.getWorld().isClient()) return;
 
-        long time = this.world.getTime();
+        long time = this.getWorld().getTime();
 
         // Planifier la disparition si pas déjà fait
         if (vanishAtTick < 0) {
@@ -57,7 +66,7 @@ public class StrangerEntity extends PathAwareEntity {
         }
 
         // Si joueur proche (5 blocs)
-        PlayerEntity nearest = this.world.getClosestPlayer(this, 5.0);
+        PlayerEntity nearest = this.getWorld().getClosestPlayer(this, 5.0);
         if (nearest != null) {
             if (time - lastMessageTick >= MESSAGE_COOLDOWN) {
                 lastMessageTick = time;
@@ -66,7 +75,7 @@ public class StrangerEntity extends PathAwareEntity {
                 nearest.sendMessage(net.minecraft.text.Text.literal(msg), false);
 
                 // Son et particules
-                if (this.world instanceof net.minecraft.server.world.ServerWorld serverWorld) {
+                if (this.getWorld() instanceof net.minecraft.server.world.ServerWorld serverWorld) {
                     serverWorld.spawnParticles(net.minecraft.particle.ParticleTypes.PORTAL, this.getX(), this.getY() + 1.0, this.getZ(), 10, 0.3, 0.5, 0.3, 0.02);
                     serverWorld.playSound(null, this.getBlockPos(), net.minecraft.sound.SoundEvents.ENTITY_VILLAGER_AMBIENT, net.minecraft.sound.SoundCategory.NEUTRAL, 1.0f, 1.0f);
                 }
@@ -75,7 +84,7 @@ public class StrangerEntity extends PathAwareEntity {
 
         // Disparition programmée
         if (time >= vanishAtTick) {
-            if (this.world instanceof net.minecraft.server.world.ServerWorld serverWorld) {
+            if (this.getWorld() instanceof net.minecraft.server.world.ServerWorld serverWorld) {
                 // Particules de fumée
                 serverWorld.spawnParticles(net.minecraft.particle.ParticleTypes.SMOKE, this.getX(), this.getY() + 1.0, this.getZ(), 40, 0.6, 0.8, 0.6, 0.05);
                 // Remplacer par un bloc de corruption à sa position
@@ -83,7 +92,7 @@ public class StrangerEntity extends PathAwareEntity {
 
                 // Message global
                 net.minecraft.text.Text global = net.minecraft.text.Text.literal("§4⚠ Une présence inconnue a quitté la zone du spawn...");
-                var server = this.world.getServer();
+                var server = this.getWorld().getServer();
                 if (server != null) {
                     server.getPlayerManager().getPlayerList().forEach(p -> p.sendMessage(global, false));
                 }

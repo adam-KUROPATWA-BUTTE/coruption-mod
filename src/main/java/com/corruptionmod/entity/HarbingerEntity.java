@@ -91,13 +91,13 @@ public class HarbingerEntity extends HostileEntity implements GeoEntity {
         this.goalSelector.add(4, new LookAroundGoal(this));
         
         this.targetSelector.add(1, new ActiveTargetGoal<>(this, PlayerEntity.class, true));
-        this.targetSelector.add(2, new RevengeTargetGoal(this));
+        this.targetSelector.add(2, new RevengeGoal(this));
     }
     
     @Override
-    protected void initDataTracker() {
-        super.initDataTracker();
-        this.dataTracker.startTracking(PHASE, PHASE_1);
+    protected void initDataTracker(DataTracker.Builder builder) {
+        super.initDataTracker(builder);
+        builder.add(PHASE, PHASE_1);
     }
     
     public int getPhase() {
@@ -375,12 +375,11 @@ public class HarbingerEntity extends HostileEntity implements GeoEntity {
         // Spawn particles at old location
         if (this.getWorld() instanceof ServerWorld serverWorld) {
             serverWorld.spawnParticles(ParticleTypes.PORTAL, this.getX(), this.getY(), this.getZ(), 30, 0.5, 1, 0.5, 0.1);
-        }
-        
-        this.teleport(teleportPos.x, teleportPos.y, teleportPos.z);
-        
-        // Spawn particles at new location
-        if (this.getWorld() instanceof ServerWorld serverWorld) {
+            
+            // Use new teleport API
+            this.teleport(serverWorld, teleportPos.x, teleportPos.y, teleportPos.z, java.util.Collections.emptySet(), this.getYaw(), this.getPitch());
+            
+            // Spawn particles at new location
             serverWorld.spawnParticles(ParticleTypes.PORTAL, this.getX(), this.getY(), this.getZ(), 30, 0.5, 1, 0.5, 0.1);
         }
         

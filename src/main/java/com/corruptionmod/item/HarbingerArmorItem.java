@@ -1,5 +1,7 @@
 package com.corruptionmod.item;
 
+import com.corruptionmod.CorruptionMod;
+import com.corruptionmod.ModItems;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.effect.StatusEffect;
 import net.minecraft.entity.effect.StatusEffectInstance;
@@ -10,13 +12,19 @@ import net.minecraft.item.ArmorMaterial;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.tooltip.TooltipType;
 import net.minecraft.recipe.Ingredient;
+import net.minecraft.registry.Registries;
+import net.minecraft.registry.Registry;
+import net.minecraft.registry.entry.RegistryEntry;
 import net.minecraft.sound.SoundEvent;
 import net.minecraft.sound.SoundEvents;
 import net.minecraft.text.Text;
 import net.minecraft.util.Formatting;
+import net.minecraft.util.Identifier;
 import net.minecraft.world.World;
 
+import java.util.EnumMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Harbinger Armor Set - Powerful armor crafted from Harbinger drops
@@ -24,59 +32,28 @@ import java.util.List;
  */
 public class HarbingerArmorItem extends ArmorItem {
     
-    private static final ArmorMaterial HARBINGER_MATERIAL = new ArmorMaterial() {
-        @Override
-        public int getDurability(Type type) {
-            return switch (type) {
-                case BOOTS -> 650;
-                case LEGGINGS -> 750;
-                case CHESTPLATE -> 800;
-                case HELMET -> 600;
-                default -> 0;
-            };
-        }
+    private static final RegistryEntry<ArmorMaterial> HARBINGER_MATERIAL = registerArmorMaterial();
+    
+    private static RegistryEntry<ArmorMaterial> registerArmorMaterial() {
+        Map<ArmorItem.Type, Integer> defense = new EnumMap<>(ArmorItem.Type.class);
+        defense.put(ArmorItem.Type.BOOTS, 3);
+        defense.put(ArmorItem.Type.LEGGINGS, 6);
+        defense.put(ArmorItem.Type.CHESTPLATE, 8);
+        defense.put(ArmorItem.Type.HELMET, 3);
         
-        @Override
-        public int getProtection(Type type) {
-            return switch (type) {
-                case BOOTS -> 3;
-                case LEGGINGS -> 6;
-                case CHESTPLATE -> 8;
-                case HELMET -> 3;
-                default -> 0;
-            };
-        }
-        
-        @Override
-        public int getEnchantability() {
-            return 20;
-        }
-        
-        @Override
-        public SoundEvent getEquipSound() {
-            return SoundEvents.ITEM_ARMOR_EQUIP_NETHERITE;
-        }
-        
-        @Override
-        public Ingredient getRepairIngredient() {
-            return Ingredient.EMPTY;
-        }
-        
-        @Override
-        public String getName() {
-            return "harbinger";
-        }
-        
-        @Override
-        public float getToughness() {
-            return 3.0f;
-        }
-        
-        @Override
-        public float getKnockbackResistance() {
-            return 0.1f;
-        }
-    };
+        return Registry.registerReference(Registries.ARMOR_MATERIAL, 
+            Identifier.of(CorruptionMod.MOD_ID, "harbinger"),
+            new ArmorMaterial(
+                defense,
+                15, // enchantability
+                SoundEvents.ITEM_ARMOR_EQUIP_NETHERITE,
+                () -> Ingredient.ofItems(ModItems.HARBINGER_CORE),
+                List.of(new ArmorMaterial.Layer(Identifier.of(CorruptionMod.MOD_ID, "harbinger"))),
+                3.0F, // toughness
+                0.1F  // knockback resistance
+            )
+        );
+    }
     
     public HarbingerArmorItem(Type type, Settings settings) {
         super(HARBINGER_MATERIAL, type, settings);

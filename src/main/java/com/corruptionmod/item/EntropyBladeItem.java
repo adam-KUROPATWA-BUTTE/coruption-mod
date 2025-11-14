@@ -1,15 +1,23 @@
 package com.corruptionmod.item;
 
+import com.corruptionmod.CorruptionMod;
 import com.corruptionmod.ModEffects;
+import com.corruptionmod.ModItems;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.effect.StatusEffectInstance;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.SwordItem;
 import net.minecraft.item.ToolMaterial;
 import net.minecraft.item.tooltip.TooltipType;
 import net.minecraft.recipe.Ingredient;
+import net.minecraft.registry.Registries;
+import net.minecraft.registry.Registry;
+import net.minecraft.registry.entry.RegistryEntry;
+import net.minecraft.registry.tag.BlockTags;
 import net.minecraft.text.Text;
 import net.minecraft.util.Formatting;
+import net.minecraft.util.Identifier;
 
 import java.util.List;
 
@@ -19,40 +27,26 @@ import java.util.List;
  */
 public class EntropyBladeItem extends SwordItem {
     
-    private static final ToolMaterial ENTROPY_MATERIAL = new ToolMaterial() {
-        @Override
-        public int getDurability() {
-            return 2500;
-        }
-        
-        @Override
-        public float getMiningSpeedMultiplier() {
-            return 9.0f;
-        }
-        
-        @Override
-        public float getAttackDamage() {
-            return 12.0f; // 12 attack damage as specified
-        }
-        
-        @Override
-        public int getMiningLevel() {
-            return 4;
-        }
-        
-        @Override
-        public int getEnchantability() {
-            return 22;
-        }
-        
-        @Override
-        public Ingredient getRepairIngredient() {
-            return Ingredient.EMPTY;
-        }
-    };
-    
+    private static final RegistryEntry<ToolMaterial> ENTROPY_MATERIAL = registerToolMaterial();
+
+    private static RegistryEntry<ToolMaterial> registerToolMaterial() {
+        return Registry.registerReference(Registries.TOOL_MATERIAL,
+            Identifier.of(CorruptionMod.MOD_ID, "entropy"),
+            new ToolMaterial(
+                BlockTags.INCORRECT_FOR_NETHERITE_TOOL, // inverseTag
+                2031, // durability
+                9.0F, // miningSpeed
+                4.0F, // attackDamage
+                15, // enchantability
+                () -> Ingredient.ofItems(ModItems.ENTROPY_ESSENCE)
+            )
+        );
+    }
+
     public EntropyBladeItem(Settings settings) {
-        super(ENTROPY_MATERIAL, 3, -2.4f, settings);
+        super(ENTROPY_MATERIAL, new Item.Settings().attributeModifiers(
+            SwordItem.createAttributeModifiers(ENTROPY_MATERIAL, 12, -2.4f)
+        ));
     }
     
     @Override

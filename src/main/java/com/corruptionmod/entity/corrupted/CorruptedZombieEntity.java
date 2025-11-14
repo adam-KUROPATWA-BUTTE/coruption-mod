@@ -43,7 +43,7 @@ public class CorruptedZombieEntity extends ZombieEntity {
         this.goalSelector.add(8, new LookAtEntityGoal(this, PlayerEntity.class, 8.0f));
         this.goalSelector.add(8, new LookAroundGoal(this));
         this.targetSelector.add(1, new ActiveTargetGoal<>(this, PlayerEntity.class, true));
-        this.targetSelector.add(2, new RevengeTargetGoal(this));
+        this.targetSelector.add(2, new RevengeGoal(this));
     }
 
     @Override

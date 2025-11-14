@@ -43,7 +43,7 @@ public class CorruptedCreeperEntity extends CreeperEntity {
         this.goalSelector.add(6, new LookAtEntityGoal(this, PlayerEntity.class, 8.0f));
         this.goalSelector.add(6, new LookAroundGoal(this));
         this.targetSelector.add(1, new ActiveTargetGoal<>(this, PlayerEntity.class, true));
-        this.targetSelector.add(2, new RevengeTargetGoal(this));
+        this.targetSelector.add(2, new RevengeGoal(this));
     }
 
     @Override

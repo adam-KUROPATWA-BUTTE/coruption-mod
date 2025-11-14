@@ -63,8 +63,8 @@ public class HarbingerArmorItem extends ArmorItem {
     public void inventoryTick(ItemStack stack, World world, Entity entity, int slot, boolean selected) {
         if (!world.isClient() && entity instanceof PlayerEntity player) {
             // Apply effects based on armor piece
-            if (player.getEquippedStack(getSlotType()).getItem() == this) {
-                applyArmorEffect(player, getSlotType());
+            if (player.getEquippedStack(this.type.getEquipmentSlot()).getItem() == this) {
+                applyArmorEffect(player, this.type);
             }
         }
         super.inventoryTick(stack, world, entity, slot, selected);
@@ -99,7 +99,7 @@ public class HarbingerArmorItem extends ArmorItem {
     
     @Override
     public void appendTooltip(ItemStack stack, Item.TooltipContext context, List<Text> tooltip, TooltipType type) {
-        Type armorType = getSlotType();
+        Type armorType = this.type;
         String effectKey = switch (armorType) {
             case HELMET -> "corruption_resistance";
             case CHESTPLATE -> "health_boost";

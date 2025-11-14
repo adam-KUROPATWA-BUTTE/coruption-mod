@@ -2,6 +2,7 @@ package com.corruptionmod.command;
 
 import com.corruptionmod.event.WorldCorruptionTicker;
 import com.corruptionmod.util.PerformanceMonitor;
+import com.mojang.brigadier.arguments.StringArgumentType;
 import com.mojang.brigadier.builder.LiteralArgumentBuilder;
 import net.fabricmc.fabric.api.command.v2.CommandRegistrationCallback;
 import net.minecraft.command.argument.EntityArgumentType;

@@ -2,7 +2,6 @@ package com.corruptionmod.util;
 
 import com.corruptionmod.ModBlocks;
 import com.corruptionmod.ModDimensions;
-import net.fabricmc.fabric.api.dimension.v1.FabricDimensions;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.entity.Entity;
@@ -10,8 +9,9 @@ import net.minecraft.server.world.ServerWorld;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
 import net.minecraft.util.math.Vec3d;
-import net.minecraft.world.TeleportTarget;
 import net.minecraft.world.World;
+
+import java.util.Collections;
 
 /**
  * Utility class for void portal mechanics.
@@ -94,16 +94,9 @@ public class VoidPortalHelper {
             return;
         }
         
-        // Create teleport target
-        TeleportTarget target = new TeleportTarget(
-            new net.minecraft.util.math.Vec3d(targetPos.getX(), targetPos.getY(), targetPos.getZ()),
-            entity.getVelocity(),
-            entity.getYaw(),
-            entity.getPitch()
-        );
-        
-        // Teleport the entity
-        FabricDimensions.teleport(entity, targetWorld, target);
+        // Use vanilla teleport API (1.21.1)
+        entity.teleport(targetWorld, targetPos.getX(), targetPos.getY(), targetPos.getZ(), 
+            Collections.emptySet(), entity.getYaw(), entity.getPitch());
     }
     
     /**

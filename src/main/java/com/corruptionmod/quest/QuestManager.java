@@ -59,7 +59,7 @@ public class QuestManager {
                     String itemId = rewardJson.get("item").getAsString();
                     int count = rewardJson.has("count") ? rewardJson.get("count").getAsInt() : 1;
                     
-                    Item item = Registry.ITEM.get(Identifier.of(itemId));
+                    Item item = Registries.ITEM.get(Identifier.of(itemId));
                     if (item != null) {
                         rewards.add(new ItemStack(item, count));
                     }

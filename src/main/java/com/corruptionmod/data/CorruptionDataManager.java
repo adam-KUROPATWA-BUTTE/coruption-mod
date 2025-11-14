@@ -1,8 +1,11 @@
 package com.corruptionmod.data;
 
 import com.corruptionmod.CorruptionMod;
+import net.minecraft.datafixer.DataFixTypes;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.nbt.NbtIo;
+import net.minecraft.nbt.NbtSizeTracker;
+import net.minecraft.registry.RegistryWrapper;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.util.math.ChunkPos;
 import net.minecraft.world.PersistentState;
@@ -29,7 +32,7 @@ public class CorruptionDataManager extends PersistentState {
     /**
      * Load corruption data from NBT
      */
-    public static CorruptionDataManager fromNbt(NbtCompound nbt) {
+    public static CorruptionDataManager fromNbt(NbtCompound nbt, RegistryWrapper.WrapperLookup registryLookup) {
         CorruptionDataManager manager = new CorruptionDataManager();
         
         if (nbt.contains("ChunkData")) {
@@ -58,7 +61,7 @@ public class CorruptionDataManager extends PersistentState {
      * Save corruption data to NBT
      */
     @Override
-    public NbtCompound writeNbt(NbtCompound nbt) {
+    public NbtCompound writeNbt(NbtCompound nbt, RegistryWrapper.WrapperLookup registryLookup) {
         NbtCompound chunkData = new NbtCompound();
         
         for (Map.Entry<ChunkPos, Float> entry : chunkCorruptionLevels.entrySet()) {
@@ -77,8 +80,11 @@ public class CorruptionDataManager extends PersistentState {
      */
     public static CorruptionDataManager get(MinecraftServer server) {
         return server.getOverworld().getPersistentStateManager().getOrCreate(
-            CorruptionDataManager::fromNbt,
-            CorruptionDataManager::new,
+            new PersistentState.Type<>(
+                CorruptionDataManager::new,
+                CorruptionDataManager::fromNbt,
+                DataFixTypes.LEVEL
+            ),
             DATA_NAME
         );
     }
@@ -135,8 +141,8 @@ public class CorruptionDataManager extends PersistentState {
             File backupFile = new File(backupDir, DATA_NAME + "_" + timestamp + ".dat");
             
             NbtCompound nbt = new NbtCompound();
-            writeNbt(nbt);
-            NbtIo.writeCompressed(nbt, backupFile);
+            writeNbt(nbt, null); // Registry lookup not needed for backup
+            NbtIo.writeCompressed(nbt, backupFile.toPath());
             
             CorruptionMod.LOGGER.info("Created corruption data backup: " + backupFile.getName());
             
@@ -153,10 +159,10 @@ public class CorruptionDataManager extends PersistentState {
      */
     public boolean restoreFromBackup(File backupFile) {
         try {
-            NbtCompound nbt = NbtIo.readCompressed(backupFile);
+            NbtCompound nbt = NbtIo.readCompressed(backupFile.toPath(), NbtSizeTracker.ofUnlimitedBytes());
             chunkCorruptionLevels.clear();
             
-            CorruptionDataManager restored = fromNbt(nbt);
+            CorruptionDataManager restored = fromNbt(nbt, null); // Registry lookup not needed for restore
             chunkCorruptionLevels.putAll(restored.chunkCorruptionLevels);
             markDirty();
             

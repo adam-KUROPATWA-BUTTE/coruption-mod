@@ -1,6 +1,6 @@
 package com.corruptionmod.world;
 
-import com.mojang.serialization.Codec;
+import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import net.minecraft.registry.Registry;
 import net.minecraft.registry.entry.RegistryEntry;
@@ -17,7 +17,7 @@ import java.util.stream.Stream;
  * Distributes the four biomes across the dimension.
  */
 public class VoidRealmBiomeSource extends BiomeSource {
-    public static final Codec<VoidRealmBiomeSource> CODEC = RecordCodecBuilder.create(instance ->
+    public static final MapCodec<VoidRealmBiomeSource> CODEC = RecordCodecBuilder.mapCodec(instance ->
             instance.group(
                     RegistryKeys.BIOME.codec().fieldOf("biome_registry").forGetter(source -> source.biomeRegistry)
             ).apply(instance, VoidRealmBiomeSource::new)
@@ -37,7 +37,7 @@ public class VoidRealmBiomeSource extends BiomeSource {
     }
 
     @Override
-    protected Codec<? extends BiomeSource> getCodec() {
+    protected MapCodec<? extends BiomeSource> getCodec() {
         return CODEC;
     }
 

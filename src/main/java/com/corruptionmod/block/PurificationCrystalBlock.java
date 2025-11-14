@@ -27,10 +27,10 @@ public class PurificationCrystalBlock extends Block {
     }
 
     @Override
-    public void onBreak(World world, BlockPos pos, BlockState state, net.minecraft.entity.player.PlayerEntity player) {
-        super.onBreak(world, pos, state, player);
+    public BlockState onBreak(World world, BlockPos pos, BlockState state, net.minecraft.entity.player.PlayerEntity player) {
         if (!world.isClient && world instanceof ServerWorld sw) {
             PurificationManager.removeCrystal(sw, pos);
         }
+        return super.onBreak(world, pos, state, player);
     }
 }
